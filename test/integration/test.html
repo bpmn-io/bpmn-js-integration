@@ -16,56 +16,57 @@
   <script src="{{bpmnJS}}"></script>
 
   <script>
-    var BpmnJS = require('bpmn/Modeler');
 
-    var xml = '{{bpmnXml}}';
+    function test() {
+      var BpmnJS = require('bpmn/Modeler');
 
-    var container = document.getElementById('canvas');
+      var xml = '{{bpmnXml}}';
 
-    var renderer = new BpmnJS(container);
+      var container = document.getElementById('canvas');
 
-    var plan = 0;
+      var renderer = window.renderer = new BpmnJS(container);
 
-    renderer.importXML(xml, function(err) {
-      if (err) {
-        console.log('import bpmn FAIL\n' + err);
-        return console.log('done');
-      }
+      var plan = 0;
 
-      var svg = document.getElementsByTagName('svg')[0];
-      var bbox = svg.getBBox();
-
-      // scale svg to fit view port
-      svg.setAttribute('viewBox', [0, 0, Math.max(1024, bbox.width + bbox.x), Math.max(768, bbox.height + bbox.y) ].join(' '));
-
-      console.info('import bpmn SUCCESS');
-
-      renderer.saveSVG(function(err, svg) {
-
+      renderer.importXML(xml, function(err) {
         if (err) {
-          return console.log('export svg FAIL\n' + err);
+          console.log('import bpmn FAIL\n' + err);
+          return console.log('done');
         }
 
-        console.log('export svg SUCCESS\n' + svg);
+        renderer.diagram.get('canvas').scale('fit-viewport');
 
-        if (++plan == 2) {
-          console.log('done');
-        }
+        console.info('import bpmn SUCCESS');
+
+        renderer.saveSVG(function(err, svg) {
+
+          if (err) {
+            return console.log('export svg FAIL\n' + err);
+          }
+
+          console.log('export svg SUCCESS\n' + svg);
+
+          if (++plan == 2) {
+            console.log('done');
+          }
+        });
+
+        renderer.saveXML({ format: true }, function(err, xml) {
+
+          if (err) {
+            return console.log('export bpmn FAIL\n' + err);
+          }
+
+          console.log('export bpmn SUCCESS\n' + xml);
+
+          if (++plan == 2) {
+            console.log('done');
+          }
+        });
       });
+    }
 
-      renderer.saveXML({ format: true }, function(err, xml) {
-
-        if (err) {
-          return console.log('export bpmn FAIL\n' + err);
-        }
-
-        console.log('export bpmn SUCCESS\n' + xml);
-
-        if (++plan == 2) {
-          console.log('done');
-        }
-      });
-    });
+    setTimeout(test, 500);
   </script>
 </body>
 </html>
