@@ -53,13 +53,13 @@ function log(str) {
 function saveAndNext() {
   test.results = results;
   log('done.');
-  
+
   next();
 }
 
 page.viewportSize = {
   width: 1600,
-  height: 800
+  height: 1600
 };
 
 page.onConsoleMessage = function(msg) {
