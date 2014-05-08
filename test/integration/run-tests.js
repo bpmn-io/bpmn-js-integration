@@ -59,7 +59,7 @@ function saveAndNext() {
 
 page.viewportSize = {
   width: 1600,
-  height: 1600
+  height: 1200
 };
 
 page.onConsoleMessage = function(msg) {
