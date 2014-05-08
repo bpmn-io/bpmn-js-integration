@@ -12,7 +12,7 @@
 <body>
 
   <div id="canvas"></div>
-  
+
   <script src="{{bpmnJS}}"></script>
 
   <script>
@@ -34,7 +34,7 @@
           return console.log('done');
         }
 
-        renderer.diagram.get('canvas').scale('fit-viewport');
+        renderer.diagram.get('canvas').zoom('fit-viewport');
 
         console.info('import bpmn SUCCESS');
 
