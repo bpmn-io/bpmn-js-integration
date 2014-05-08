@@ -34,7 +34,7 @@
     "grunt-contrib-watch": "~0.5.0",
     "grunt-contrib-jshint": "~0.7.2",
     "grunt-contrib-copy": "~0.5.0",
-    "grunt-jasmine-node": "~0.1.0",
+    "grunt-jasmine-node": "~0.2.1",
     "load-grunt-tasks": "~0.3.0",
     "jsondiffpatch": "~0.1.4",
     "xsd-schema-validator": "0.0.3",
