@@ -1,11 +1,11 @@
 {
-  "name": "bpmn-js-integration-miwg",
+  "name": "bpmn-js-integration",
   "version": "0.0.1",
-  "description": "integration tests that build the miwg testsuite using bpmn-js",
+  "description": "integration tests for bpmn-js",
   "scripts": {
     "test": "grunt test"
   },
-  "main": "lib/main",
+  "main": "lib/main.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/bpmn-io/bpmn-js"
@@ -28,6 +28,7 @@
       "url": "https://github.com/bpmn-io"
     }
   ],
+  "license": "MIT",
   "private": true,
   "devDependencies": {
     "grunt": "~0.4.3",
