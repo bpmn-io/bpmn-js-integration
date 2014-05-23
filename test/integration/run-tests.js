@@ -1,3 +1,5 @@
+/* global phantom */
+
 var page = require('webpage').create(),
     system = require('system'),
     fs = require('fs');
@@ -47,7 +49,7 @@ function next() {
 }
 
 function log(str) {
-
+  console.log.apply(console, Array.prototype.slice.call(arguments));
 }
 
 function saveAndNext() {
@@ -58,15 +60,15 @@ function saveAndNext() {
 }
 
 page.viewportSize = {
-  width: 1600,
-  height: 1200
+  width: 1024,
+  height: 768
 };
 
 page.onConsoleMessage = function(msg) {
 
   var baseName = test.base;
 
-  if (msg == 'done') {
+  if (msg === 'done') {
     return saveAndNext();
   }
 
@@ -83,8 +85,8 @@ page.onConsoleMessage = function(msg) {
     var result;
     var testName = phase + '-' + category;
 
-    if (status == FAIL) {
-      log('test FAIL ' + testName);
+    if (status === FAIL) {
+      log('test FAIL ' + testName + ': ' + payload);
 
       result = { error: payload };
     } else {

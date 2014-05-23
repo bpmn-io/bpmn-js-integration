@@ -1,6 +1,9 @@
 var phantomjs = require('phantomjs'),
     spawn = require('child_process').spawn;
 
+function log(err, message) {
+  console.log('  ' + (err ? 'ERR! ' : '') + message.toString('utf-8').replace(/\n\s*$/, ''));
+}
 
 function run(script, args, done) {
 
@@ -13,11 +16,11 @@ function run(script, args, done) {
   });
 
   instance.stdout.on('data', function (data) {
-    console.log('stdout: ' + data);
+    log(null, data);
   });
 
   instance.stderr.on('data', function (data) {
-    console.error('stderr: ' + data);
+    log(true, data);
   });
 
   instance.on('close', function (code) {

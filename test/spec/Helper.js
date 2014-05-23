@@ -8,7 +8,7 @@ var mkdirp = require('mkdirp'),
     join = path.join;
 
 function log() {
-  // console.log.apply(console, Array.prototype.slice.call(arguments));
+  console.log.apply(console, Array.prototype.slice.call(arguments));
 }
 
 function readFile(f) {
@@ -33,8 +33,6 @@ Helper.prototype.createTestPage = function(file) {
   var tmpDir = this.tmpDir;
   var basePath = this.basePath;
 
-  log(file);
-
   var xml = readFile(file);
   var name = path.basename(file, '.bpmn');
 
@@ -53,6 +51,8 @@ Helper.prototype.createTestPage = function(file) {
   mkdirp.sync(path.dirname(relativePath));
 
   var testFileName = relativePath + '.html';
+
+  log('[prepare-tests] created test file', testFileName);
 
   fs.writeFileSync(testFileName, testFileHTML);
 
@@ -73,7 +73,7 @@ Helper.prototype.prepareTestFiles = function(pattern, done) {
 
   var self = this;
 
-  log('glob %s', path);
+  log('[prepare-tests] files %s', path);
 
   glob(path, function(err, files) {
 
@@ -84,11 +84,12 @@ Helper.prototype.prepareTestFiles = function(pattern, done) {
     var scripts = [];
 
     files.forEach(function(f) {
-      log('test %s', f);
       scripts.push(self.createTestPage(f));
     });
 
     var descriptor = join(tmpDir, 'results.json');
+
+    log('[prepare-tests] write test descriptor', descriptor);
 
     fs.writeFileSync(descriptor, JSON.stringify(scripts));
 
@@ -100,7 +101,11 @@ Helper.prototype.runPhantom = function(descriptor, done) {
 
   var tmpDir = this.tmpDir;
 
+  log('[run-tests] running via phantomjs ...');
+
   browser(path.resolve(__dirname, '../integration/run-tests.js'), [ descriptor ], function(err) {
+
+    log('[run-tests] done.');
 
     if (err) {
       return done(err);
@@ -116,6 +121,8 @@ Helper.prototype.runPhantom = function(descriptor, done) {
 Helper.prototype.runSuite = function(pattern, done) {
 
   var self = this;
+
+  log('[suite] %s', pattern);
 
   this.prepareTestFiles(pattern, function(err, descriptor) {
 
