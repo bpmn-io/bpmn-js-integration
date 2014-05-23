@@ -24,13 +24,13 @@
 
       var container = document.getElementById('canvas');
 
-      var renderer = window.renderer = new BpmnJS(container);
+      var renderer = window.renderer = new BpmnJS({ container: container, width: '100%', height: '100%' });
 
       var plan = 0;
 
       renderer.importXML(xml, function(err) {
         if (err) {
-          console.log('import bpmn FAIL\n' + err);
+          console.log('import bpmn FAIL\n' + JSON.stringify(err));
           return console.log('done');
         }
 
@@ -41,10 +41,10 @@
         renderer.saveSVG(function(err, svg) {
 
           if (err) {
-            return console.log('export svg FAIL\n' + err);
+            console.log('export svg FAIL\n' + JSON.stringify(err));
+          } else {
+            console.log('export svg SUCCESS\n' + svg);
           }
-
-          console.log('export svg SUCCESS\n' + svg);
 
           if (++plan == 2) {
             console.log('done');
@@ -54,10 +54,10 @@
         renderer.saveXML({ format: true }, function(err, xml) {
 
           if (err) {
-            return console.log('export bpmn FAIL\n' + err);
+            console.log('export bpmn FAIL\n' + JSON.stringify(err));
+          } else {
+            console.log('export bpmn SUCCESS\n' + xml);
           }
-
-          console.log('export bpmn SUCCESS\n' + xml);
 
           if (++plan == 2) {
             console.log('done');
@@ -66,7 +66,7 @@
       });
     }
 
-    setTimeout(test, 500);
+    setTimeout(test, 250);
   </script>
 </body>
 </html>
