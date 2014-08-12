@@ -1,0 +1,99 @@
+<!DOCTYPE>
+<html>
+<head>
+  <title>bpmn.js model tester script</title>
+  <!-- source file: '{{bpmnFile}}' -->
+
+  <style>
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="canvas"></div>
+
+  <script src="{{bpmnJS}}"></script>
+
+  <script>
+    {{bpmnJs}}
+  </script>
+
+  <script type="text/javascript">
+
+    function test() {
+
+      var BpmnJS = require('bpmn-js/Modeler');
+
+      var container = document.getElementById('canvas');
+
+      var renderer = window.renderer = new BpmnJS({ container: container, width: '100%', height: '100%' });
+
+      var plan = 0;
+
+      var initalProcess = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+                '<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n' +
+                                  'xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL"\n' +
+                                  'xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"\n' +
+                                  'xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"\n' +
+                                  'xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"\n' +
+                                  'id="integration-test"\n' +
+                                  'targetNamespace="">' +
+                '  <bpmn2:process id="Process_1" isExecutable="false">\n' +
+                '    <bpmn2:startEvent id="StartEvent_1"/>\n' +
+                '  </bpmn2:process>' +
+                '  <bpmndi:BPMNDiagram id="BPMNDiagram_1">' +
+                '    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">' +
+                '      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_3" bpmnElement="StartEvent_1">' +
+                '        <dc:Bounds height="36.0" width="36.0" x="37.0" y="69.0"/>' +
+                '      </bpmndi:BPMNShape>' +
+                '    </bpmndi:BPMNPlane>' +
+                '  </bpmndi:BPMNDiagram>' +
+                '</bpmn2:definitions>';
+
+      renderer.importXML(initalProcess, function(err) {
+        if (err && err !== null) {
+          console.log('import bpmn FAIL\n' + err);
+          return console.log('done');
+        }
+        var cli  = renderer.get('cli');
+
+        console.info('import bpmn SUCCESS');
+
+        runXSDValidation(cli);
+
+        renderer.diagram.get('canvas').zoom('fit-viewport');
+
+        renderer.saveSVG(function(err, svg) {
+
+          if (err) {
+            console.log('export svg FAIL\n' + JSON.stringify(err));
+          } else {
+            console.log('export svg SUCCESS\n' + svg);
+          }
+
+          if (++plan == 2) {
+            console.log('done');
+          }
+        });
+
+        renderer.saveXML({ format: true }, function(err, xml) {
+
+          if (err) {
+            console.log('export bpmn FAIL\n' + JSON.stringify(err));
+          } else {
+            console.log('export bpmn SUCCESS\n' + xml);
+          }
+
+          if (++plan == 2) {
+            console.log('done');
+          }
+        });
+      });
+    }
+
+    setTimeout(test, 250);
+  </script>
+</body>
+</html>

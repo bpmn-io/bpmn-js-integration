@@ -11,7 +11,7 @@ describe('bpmn-miwg', function() {
 
 
   it('should execute base tests', function(done) {
-    helper.runSuite('bpmn/*.bpmn', function(err, results) {
+    helper.runSuite('bpmn/*.bpmn', 'test.html', function(err, results) {
 
       console.log('[IMPORT] [EXPORT_SVG] [EXPORT_BPMN] file');
 

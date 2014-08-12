@@ -27,24 +27,25 @@ function Helper(suiteName, basePath) {
   mkdirp.sync(this.tmpDir);
 }
 
-Helper.prototype.createTestPage = function(file) {
+Helper.prototype.createTestPage = function(file, htmlTemplate) {
 
   var suiteName = this.suiteName;
   var tmpDir = this.tmpDir;
   var basePath = this.basePath;
 
-  var xml = readFile(file);
+  var bpmnContent = readFile(file);
   var name = path.basename(file, '.bpmn');
 
   var library = fs.realpathSync('../bpmn-js/dist/bpmn.js');
 
-  var template = readFile(join(__dirname, '../integration', 'test.html'));
+  var template = readFile(join(__dirname, '../integration', htmlTemplate));
 
   var testFileHTML =
     template
       .replace('{{bpmnFile}}', suiteName + '/' + name)
       .replace('{{bpmnJS}}', library)
-      .replace('{{bpmnXml}}', xml.replace(/'/g, '\\\'').replace(/[\n\r]+/g, '\\n'));
+      .replace('{{bpmnXml}}', bpmnContent.replace(/'/g, '\\\'').replace(/[\n\r]+/g, '\\n'))
+      .replace('{{bpmnJs}}', bpmnContent);
 
   var relativePath = path.dirname(tmpDir + '/' + path.relative(basePath, file)) + '/' + name;
 
@@ -64,13 +65,10 @@ Helper.prototype.createTestPage = function(file) {
   };
 };
 
-Helper.prototype.prepareTestFiles = function(pattern, done) {
+Helper.prototype.prepareTestFiles = function(pattern, htmlTemplate, done) {
 
   var tmpDir = this.tmpDir;
-  var suiteName = this.suiteName;
-
   var path = this.basePath + '/' + pattern;
-
   var self = this;
 
   log('[prepare-tests] files %s', path);
@@ -84,13 +82,12 @@ Helper.prototype.prepareTestFiles = function(pattern, done) {
     var scripts = [];
 
     files.forEach(function(f) {
-      scripts.push(self.createTestPage(f));
+      scripts.push(self.createTestPage(f, htmlTemplate));
     });
 
     var descriptor = join(tmpDir, 'results.json');
 
     log('[prepare-tests] write test descriptor', descriptor);
-
     fs.writeFileSync(descriptor, JSON.stringify(scripts));
 
     done(null, descriptor);
@@ -118,13 +115,13 @@ Helper.prototype.runPhantom = function(descriptor, done) {
   });
 };
 
-Helper.prototype.runSuite = function(pattern, done) {
+Helper.prototype.runSuite = function(pattern, htmlTemplate, done) {
 
   var self = this;
 
   log('[suite] %s', pattern);
 
-  this.prepareTestFiles(pattern, function(err, descriptor) {
+  this.prepareTestFiles(pattern, htmlTemplate, function(err, descriptor) {
 
     if (err) {
       return done(err);

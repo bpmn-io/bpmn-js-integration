@@ -9,7 +9,7 @@ describe('bpmn-miwg', function() {
 
 
   it('should execute testsuite', function(done) {
-    helper.runSuite('Reference/*.bpmn', done);
+    helper.runSuite('Reference/*.bpmn', 'test.html', done);
   }, 20000);
 
 });
