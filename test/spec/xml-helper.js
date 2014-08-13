@@ -33,6 +33,5 @@ module.exports.validate = function(xml, done, reporterCallback) {
     }
     expect(result.valid).toEqual(true);
     reporterCallback(result.valid === true ? 'SUCCESS' : 'FAIL');
-    done();
   });
 };

@@ -43,19 +43,39 @@ describe('modeler-test', function() {
   it('should execute testsuite', function(done) {
     helper.runSuite('model-js/*.js', 'test-model.html', function(err, results) {
 
-      console.log('\n\n[XSD Validation]');
-      _.forEach(results, function(r) {
-        validateModel(r.base + '-export.bpmn', done, function(validateResult) {
+      var completed = function(err) {
+        if (err) {
+          console.log('\n[Validation results]: FAILURE - Stopping tests');
+          done(err);
+        } else {
+          console.log('\n[Validation results]: SUCCESS all ' + results.length + ' XSD validations completed successfully.');
+          done();
+        }
+      };
 
+      console.log('\n\n[XSD Validation]');
+      var testStack = _.clone(results);
+
+      (function runTests() {
+
+        var r = testStack.pop();
+
+        if (!r) {
+          completed();
+          return;
+        }
+
+        validateModel(r.base + '-export.bpmn', completed, function(validateResult) {
           if(validateResult === 'SUCCESS') {
             console.log('Model ' + r.base + '-export.bpmn is valid');
+            runTests();
           } else {
             console.error('Model ' + r.base + '-export.bpmn is invalid');
             throw new Error(r.base + '-export.bpmn failed');
           }
         });
-      });
+      })();
     });
-  }, 20000);
+  }, 30000);
 
 });
