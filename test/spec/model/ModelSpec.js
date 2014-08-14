@@ -1,5 +1,7 @@
 'use strict';
 
+var timeout = 20000;
+
 var Helper = require('../Helper'),
     XMLHelper = require('../xml-helper'),
     SimpleBpmnModdle = require('../../../../bpmn-moddle');
@@ -37,11 +39,15 @@ function validateModel(file, done, validateResult) {
 
 describe('modeler-test', function() {
 
+  // Use this as iit does not respect the other async timeout syntax
+  jasmine.getEnv().defaultTimeoutInterval = timeout;
+
   var helper = new Helper('modeler-test', 'test/fixtures');
 
 
   it('should execute testsuite', function(done) {
-    helper.runSuite('model-js/*.js', 'test-model.html', function(err, results) {
+
+      helper.runSuite('model-js/*.js', 'test-model.html', function(err, results) {
 
       var completed = function(err) {
         if (err) {
@@ -76,6 +82,6 @@ describe('modeler-test', function() {
         });
       })();
     });
-  }, 30000);
+  }, timeout);
 
 });
