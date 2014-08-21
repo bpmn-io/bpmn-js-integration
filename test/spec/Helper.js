@@ -36,7 +36,7 @@ Helper.prototype.createTestPage = function(file, htmlTemplate) {
   var bpmnContent = readFile(file);
   var name = path.basename(file, '.bpmn');
 
-  var library = fs.realpathSync('../bpmn-js/dist/bpmn.js');
+  var library = fs.realpathSync('dist/bpmn.js');
 
   var template = readFile(join(__dirname, '../integration', htmlTemplate));
 
@@ -45,7 +45,7 @@ Helper.prototype.createTestPage = function(file, htmlTemplate) {
       .replace('{{bpmnFile}}', suiteName + '/' + name)
       .replace('{{bpmnJS}}', library)
       .replace('{{bpmnXml}}', bpmnContent.replace(/'/g, '\\\'').replace(/[\n\r]+/g, '\\n'))
-      .replace('{{bpmnJs}}', bpmnContent);
+      .replace('{{testScript}}', bpmnContent);
 
   var relativePath = path.dirname(tmpDir + '/' + path.relative(basePath, file)) + '/' + name;
 

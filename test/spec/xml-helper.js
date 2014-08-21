@@ -3,7 +3,7 @@
 var SchemaValidator = require('xsd-schema-validator'),
                  fs = require('fs');
 
-var BPMN_XSD = '../bpmn-moddle/resources/bpmn/xsd/BPMN20.xsd';
+var BPMN_XSD = require.resolve('bpmn-moddle/resources/bpmn/xsd/BPMN20.xsd');
 
 
 

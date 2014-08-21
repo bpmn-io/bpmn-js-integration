@@ -1,5 +1,7 @@
+/* embedded and executed in browser test */
+
 //Test parallel gateways
-function runXSDValidation(cli) {
+function executeTest(cli) {
 
   // element
   var startEventElement = cli.element('StartEvent_1');

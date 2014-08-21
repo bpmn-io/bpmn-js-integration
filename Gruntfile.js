@@ -2,6 +2,7 @@ module.exports = function(grunt) {
 
   require('load-grunt-tasks')(grunt);
 
+
   // project configuration
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -9,21 +10,9 @@ module.exports = function(grunt) {
     config: {
       sources: 'lib',
       tests: 'test',
-      dist: 'dist',
-      samples: 'example'
+      dist: 'dist'
     },
 
-    jshint: {
-      src: [
-        ['<%=config.sources %>']
-      ],
-      gruntfile: [
-        'Gruntfile.js'
-      ],
-      options: {
-        jshintrc: true
-      }
-    },
     jasmine_node: {
       options: {
         specNameMatcher: '.*Spec',
@@ -36,6 +25,47 @@ module.exports = function(grunt) {
       },
       all: [ 'test/spec/' ]
     },
+
+    browserify: {
+      options: {
+        browserifyOptions: {
+          builtins: false
+        },
+        bundleOptions: {
+          detectGlobals: false,
+          insertGlobalVars: [],
+          debug: true
+        }
+      },
+
+      modeler: {
+        files: {
+          '<%= config.dist %>/bpmn.js': [ '<%= config.sources %>/**/*.js' ],
+        },
+        options: {
+          alias: [
+            'bpmn-js/lib/Modeler:bpmn-js/lib/Modeler'
+          ]
+        }
+      }
+    },
+
+    uglify: {
+      options: {
+        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
+                '<%= grunt.template.today("yyyy-mm-dd") %> - ' +
+                'http://bpmn.io/license - ' +
+                'https://github.com/bpmn-io/bpmn-js */',
+        sourceMap: true,
+        sourceMapIncludeSources: true
+      },
+      modeler: {
+        files: {
+          '<%= config.bowerDist %>/bpmn-viewer.min.js': [ '<%= config.bowerDist %>/bpmn-viewer.js' ]
+        }
+      }
+    },
+
     watch: {
       jasmine_node: {
         files: [ '<%= config.sources %>/**/*.js', '<%= config.tests %>/spec/**/*.js' ],
@@ -45,10 +75,12 @@ module.exports = function(grunt) {
   });
 
   // tasks
-  
+
   grunt.registerTask('test', [ 'jasmine_node' ]);
+
+  grunt.registerTask('bundle', [ 'browserify:modeler', 'uglify:modeler' ]);
 
   grunt.registerTask('auto-test', [ 'jasmine_node', 'watch:jasmine_node' ]);
 
-  grunt.registerTask('default', [ 'jshint', 'test' ]);
+  grunt.registerTask('default', [ 'bundle', 'test' ]);
 };

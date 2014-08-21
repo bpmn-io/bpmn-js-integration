@@ -1,5 +1,7 @@
+/* embedded and executed in browser test */
+
 //Test undo
-function runXSDValidation(cli) {
+function executeTest(cli) {
 
   // elements
   var elements = cli.elements();

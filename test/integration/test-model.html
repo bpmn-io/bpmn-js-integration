@@ -17,14 +17,15 @@
   <script src="{{bpmnJS}}"></script>
 
   <script>
-    {{bpmnJs}}
+    // defines the function executeTest() that is invoked during test run
+    {{testScript}}
   </script>
 
   <script type="text/javascript">
 
     function test() {
 
-      var BpmnJS = require('bpmn-js/Modeler');
+      var BpmnJS = require('bpmn-js/lib/Modeler');
 
       var container = document.getElementById('canvas');
 
@@ -61,7 +62,8 @@
 
         console.info('import bpmn SUCCESS');
 
-        runXSDValidation(cli);
+        // execute test case embedded via {{ testScript }}
+        executeTest(cli);
 
         renderer.diagram.get('canvas').zoom('fit-viewport');
 

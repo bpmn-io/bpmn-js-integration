@@ -1,5 +1,7 @@
+/* embedded and executed in browser test */
+
 //Test gateways and joining on gateway for a loop
-function runXSDValidation(cli) {
+function executeTest(cli) {
 
   // elements
   var elements = cli.elements();

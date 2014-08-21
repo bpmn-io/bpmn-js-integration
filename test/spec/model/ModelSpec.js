@@ -64,20 +64,23 @@ describe('modeler-test', function() {
 
       (function runTests() {
 
-        var r = testStack.pop();
+        var r = testStack.shift();
 
         if (!r) {
           completed();
           return;
         }
 
+
+        console.log('validating ' + r.base + '-export.bpmn');
+
         validateModel(r.base + '-export.bpmn', completed, function(validateResult) {
           if(validateResult === 'SUCCESS') {
-            console.log('Model ' + r.base + '-export.bpmn is valid');
+            console.log(r.base + '-export.bpmn [VALID]');
             runTests();
           } else {
-            console.error('Model ' + r.base + '-export.bpmn is invalid');
-            throw new Error(r.base + '-export.bpmn failed');
+            console.error(r.base + '-export.bpmn [VALID]');
+            throw new Error(r.base + '-export.bpmn failed XSD validation');
           }
         });
       })();

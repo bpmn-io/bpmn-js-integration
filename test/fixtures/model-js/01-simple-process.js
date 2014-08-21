@@ -1,4 +1,5 @@
-function runXSDValidation(cli) {
+/* embedded and executed in browser test */
+function executeTest(cli) {
 
   // elements
   var elements = cli.elements();
