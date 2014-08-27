@@ -104,6 +104,7 @@ page.onConsoleMessage = function(msg) {
           break;
 
         case 'export-svg':
+          page.render(baseName + '-export.png');
           fs.write(baseName + '-export.svg', payload);
           break;
       }
