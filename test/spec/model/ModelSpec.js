@@ -1,6 +1,6 @@
 'use strict';
 
-var timeout = 20000;
+var timeout = 30000;
 
 var Helper = require('../Helper'),
     XMLHelper = require('../xml-helper'),
