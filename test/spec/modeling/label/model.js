@@ -1,6 +1,5 @@
 /* embedded and executed in browser test */
 
-// Test removing label
 function executeTest(cli) {
 
   // elements
@@ -13,9 +12,25 @@ function executeTest(cli) {
 
   var connection = cli.connect(startEventElement, task, 'bpmn:SequenceFlow');
 
+  cli.snapshot('modeled');
+
   cli.setLabel(connection, 'A connection label');
   cli.setLabel(startEventElement, 'A shape label');
 
+  cli.snapshot('setlabel');
+
   cli.removeConnection(connection);
   cli.removeShape(startEventElement);
+
+  cli.snapshot('removedlabel');
+
+  cli.undo();
+  cli.undo();
+
+  cli.snapshot('undone');
+
+  cli.redo();
+  cli.redo();
+
+  cli.snapshot('redone');
 }

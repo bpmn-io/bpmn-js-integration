@@ -13,17 +13,20 @@ module.exports = function(grunt) {
       dist: 'dist'
     },
 
-    jasmine_node: {
-      options: {
-        specNameMatcher: '.*Spec',
-        jUnit: {
-          report: true,
-          savePath : 'tmp/reports/jasmine',
-          useDotNotation: true,
-          consolidate: true
-        }
-      },
-      all: [ 'test/spec/' ]
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec',
+          require: [
+            './test/expect.js'
+          ]
+        },
+        src: [
+          'test/spec/modeling/*.js',
+          'test/spec/base/*.js',
+          'test/spec/miwg/*.js'
+        ]
+      }
     },
 
     browserify: {
@@ -40,11 +43,11 @@ module.exports = function(grunt) {
 
       modeler: {
         files: {
-          '<%= config.dist %>/bpmn.js': [ '<%= config.sources %>/**/*.js' ],
+          '<%= config.dist %>/bpmn.js': [ '<%= config.sources %>/bpmn.js' ],
         },
         options: {
           alias: [
-            'bpmn-js/lib/Modeler:bpmn-js/lib/Modeler'
+            '<%= config.sources %>/bpmn.js:bpmn-js/lib/Modeler'
           ]
         }
       }
@@ -61,26 +64,26 @@ module.exports = function(grunt) {
       },
       modeler: {
         files: {
-          '<%= config.bowerDist %>/bpmn-viewer.min.js': [ '<%= config.bowerDist %>/bpmn-viewer.js' ]
+          '<%= config.dist %>/bpmn.min.js': [ '<%= config.dist %>/bpmn.js' ]
         }
       }
     },
 
     watch: {
-      jasmine_node: {
+      test: {
         files: [ '<%= config.sources %>/**/*.js', '<%= config.tests %>/spec/**/*.js' ],
-        tasks: [ 'jasmine_node' ]
+        tasks: [ 'mochaTest' ]
       }
     }
   });
 
   // tasks
 
-  grunt.registerTask('test', [ 'jasmine_node' ]);
+  grunt.registerTask('test', [ 'mochaTest' ]);
 
   grunt.registerTask('bundle', [ 'browserify:modeler', 'uglify:modeler' ]);
 
-  grunt.registerTask('auto-test', [ 'jasmine_node', 'watch:jasmine_node' ]);
+  grunt.registerTask('auto-test', [ 'test', 'watch:test' ]);
 
   grunt.registerTask('default', [ 'bundle', 'test' ]);
 };

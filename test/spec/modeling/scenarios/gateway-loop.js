@@ -1,10 +1,9 @@
 /* embedded and executed in browser test */
 
-// Test remove shape
+//Test gateways and joining on gateway for a loop
 function executeTest(cli) {
 
-  // elements
-  var elements = cli.elements();
+  var i;
 
   // element
   var startEventElement = cli.element('StartEvent_1');
@@ -19,5 +18,18 @@ function executeTest(cli) {
 
   cli.append(gatewayShape2, 'bpmn:EndEvent', '100,0');
 
-  cli.removeShape(task);
+
+  cli.snapshot('modeled');
+
+  for (i = 0; i < 5; i++) {
+    cli.undo();
+  }
+
+  cli.snapshot('undone');
+
+  for (i = 0; i < 5; i++) {
+    cli.redo();
+  }
+
+  cli.snapshot('redone');
 }

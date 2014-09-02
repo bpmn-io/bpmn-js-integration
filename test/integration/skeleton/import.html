@@ -1,0 +1,56 @@
+<!DOCTYPE>
+<html>
+<head>
+  <title>bpmn.js model tester script</title>
+  <!--
+    bpmn: {{test-bpmn-path}}
+  -->
+
+  <style>
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="canvas"></div>
+
+  <script src="{{bpmn-js-path}}"></script>
+
+  <script type="text/javascript">
+
+    function test() {
+
+      var BpmnJS = require('bpmn-js/lib/Modeler');
+
+      var container = document.getElementById('canvas');
+
+      var renderer = window.renderer = new BpmnJS({ container: container, width: '100%', height: '100%' });
+
+      var plan = 0;
+
+      // location: {{test-bpmn-path}}
+      var initalProcess = '{{test-bpmn}}';
+
+      renderer.importXML(initalProcess, function(err) {
+        if (err && err !== null) {
+          console.log('snapshot initial reached FAIL\n' + err);
+          return console.log('done');
+        }
+
+        var cli  = renderer.get('cli'),
+            canvas = renderer.get('canvas');
+
+        canvas.zoom('fit-viewport');
+
+        cli.snapshot('imported');
+
+        console.log('done');
+      });
+    }
+
+    setTimeout(test, 250);
+  </script>
+</body>
+</html>

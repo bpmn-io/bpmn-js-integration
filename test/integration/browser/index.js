@@ -30,4 +30,4 @@ function run(script, args, done) {
   return instance;
 }
 
-module.exports = run;
+module.exports.run = run;
