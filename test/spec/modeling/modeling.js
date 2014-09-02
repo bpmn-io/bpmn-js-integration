@@ -43,6 +43,13 @@ describe('modeling', function() {
 
     });
 
+
+    describe('move', function() {
+
+      it('should move with containments', testExecute('move/containments.js', ensureValidBpmn20));
+
+    });
+
   });
 
 
