@@ -7,7 +7,7 @@ describe('base', function() {
       testBatchImport = helper.testBatchImport;
 
 
-  this.timeout(40000);
+  this.timeout(120000);
 
   it('should execute testsuite', testBatchImport('*.bpmn'));
 
