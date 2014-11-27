@@ -18,14 +18,14 @@ try {
   log('parsed config file ' + configFile);
   tests = JSON.parse(fs.read(configFile));
 } catch (e) {
-  console.error('Failed to parse ' + configFile);
+  console.error('failed to parse ' + configFile);
   phantom.exit(1);
 }
 
-var PATTERN = /^snapshot ([\w]+) ([\w]+) (SUCCESS|FAIL)(?:\n*([^]+))?$/;
+var PATTERN = /^snapshot ([^\s]+) ([^\s]+) (SUCCESS|FAIL)(?:\n*([^]+))?$/;
 
-var FAIL = 'FAIL';
-var SUCCESS = 'SUCCESS';
+var FAIL = 'FAIL',
+    SUCCESS = 'SUCCESS';
 
 var idx = -1,
     test,
@@ -52,6 +52,7 @@ function next() {
 }
 
 function log(str) {
+  // quiet now!
   // console.log.apply(console, Array.prototype.slice.call(arguments));
 }
 
@@ -78,7 +79,7 @@ page.onConsoleMessage = function(msg) {
   var match = PATTERN.exec(msg);
 
   if (!match) {
-    log('unexpected message: ' + msg);
+    console.error('unexpected message: ' + msg);
   } else {
     var name = match[1],
         element = match[2],
@@ -97,7 +98,7 @@ page.onConsoleMessage = function(msg) {
       log('test FAIL ' + step + ' ' + element + ': ' + payload);
       result[element] = { status: 'FAILED', error: payload };
     } else {
-      log('test FAIL ' + step + ' ' + element);
+      log('test SUCCESS ' + step + ' ' + element);
 
       switch(element) {
         case 'reached':
