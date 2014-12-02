@@ -22,10 +22,11 @@ describe('modeling', function() {
 
   describe('elements', function() {
 
-    describe('events', function() {
+    describe('append', function() {
 
-      it('should model event', testExecute('events/types.js', ensureValidBpmn20));
+      it('should append events', testExecute('append/events.js', ensureValidBpmn20));
 
+      it('should append text-annotations', testExecute('append/text-annotation.js', ensureValidBpmn20));
     });
 
   });
@@ -46,7 +47,9 @@ describe('modeling', function() {
 
     describe('move', function() {
 
-      it('should move with containments', testExecute('move/containments.js', ensureValidBpmn20));
+      it('should move with children', testExecute('move/children.js', ensureValidBpmn20));
+
+      it('should move updating parent', testExecute('move/parent-changes.js', ensureValidBpmn20));
 
     });
 
