@@ -10,24 +10,40 @@ module.exports = function(grunt) {
     config: {
       sources: 'lib',
       tests: 'test',
-      dist: 'dist'
+      dist: 'dist',
+      temp: 'tmp'
     },
 
     mochaTest: {
+      options: {
+        reporter: 'spec',
+        require: [
+          './test/expect.js'
+        ]
+      },
       test: {
-        options: {
-          reporter: 'spec',
-          require: [
-            './test/expect.js'
-          ]
-        },
         src: [
           'test/spec/modeling/*.js',
           'test/spec/base/*.js',
           'test/spec/miwg/*.js'
         ]
+      },
+      miwg_rename: {
+        src: [
+          'test/postprocess/miwg-rename.js'
+        ]
+      },
+      image_diff: {
+        src: [
+          'test/postprocess/image-diff.js'
+        ]
       }
     },
+
+    clean: {
+      temp: [ '<%= config.temp %>', '<%= config.dist %>' ]
+    },
+
 
     browserify: {
       options: {
@@ -72,18 +88,25 @@ module.exports = function(grunt) {
     watch: {
       test: {
         files: [ '<%= config.sources %>/**/*.js', '<%= config.tests %>/spec/**/*.js' ],
-        tasks: [ 'mochaTest' ]
+        tasks: [ 'test' ]
       }
     }
   });
 
   // tasks
 
-  grunt.registerTask('test', [ 'mochaTest' ]);
+  grunt.registerTask('test', function(target) {
+
+    if (target === 'image-diff') {
+      return grunt.task.run([ 'mochaTest:image_diff' ]);
+    }
+
+    return grunt.task.run([ 'mochaTest:test', 'mochaTest:miwg_rename' ]);
+  });
 
   grunt.registerTask('bundle', [ 'browserify:modeler', 'uglify:modeler' ]);
 
   grunt.registerTask('auto-test', [ 'test', 'watch:test' ]);
 
-  grunt.registerTask('default', [ 'bundle', 'test' ]);
+  grunt.registerTask('default', [ 'clean', 'bundle', 'test' ]);
 };
