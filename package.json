@@ -46,8 +46,10 @@
     "load-grunt-tasks": "^0.3.0",
     "lodash": "^2.4.0",
     "mkdirp": "^0.3.5",
-    "node-resemble": "^1.1.1",
     "phantomjs": "^1.9.7-8",
     "xsd-schema-validator": "^0.1.0"
+  },
+  "optionalDependencies": {
+    "node-resemble": "^1.1.1"
   }
 }

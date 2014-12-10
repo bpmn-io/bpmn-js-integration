@@ -98,6 +98,18 @@ module.exports = function(grunt) {
   grunt.registerTask('test', function(target) {
 
     if (target === 'image-diff') {
+
+      try {
+        require('node-resemble');
+      } catch (e) {
+        grunt.fail.warn(
+          'it looks like you do not have node-resemble properly installed. Ensure you\n' +
+          '\n' +
+          '  (1) installed cairo on your machine' +
+          '  (2) installed node-resemble (npm install node-resemble)');
+
+      }
+
       return grunt.task.run([ 'mochaTest:image_diff' ]);
     }
 
