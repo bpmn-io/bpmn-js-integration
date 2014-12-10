@@ -17,8 +17,8 @@ describe('modeling', function() {
   }
 
 
-  // YUP, necessary
-  this.timeout(10000);
+  // YUP, necessary because we do JAVAAAA for validation
+  this.timeout(25000);
 
   describe('elements', function() {
 
