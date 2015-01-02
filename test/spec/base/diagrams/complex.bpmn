@@ -692,18 +692,18 @@
          <incoming>sid-95536E0F-E8E4-42AD-A790-FF80B0DAA3C6</incoming>
          <messageEventDefinition id="sid-99abd823-96bd-409c-bf34-741be51a3c11"/>
       </endEvent>
-      <dataObject id="sid-605CFA06-1094-472C-BE10-9B2538CF347A" isCollection="false">
+      <dataObjectReference id="sid-605CFA06-1094-472C-BE10-9B2538CF347A">
          <extensionElements>
             <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
             <signavio:signavioMetaData metaKey="userstory" metaValue="[]"/>
          </extensionElements>
-      </dataObject>
-      <dataObject id="sid-63680D79-E8F7-4BBC-ACEC-1C8FD4A0A8D6" isCollection="true" name="wda">
+      </dataObjectReference>
+      <dataObjectReference id="sid-63680D79-E8F7-4BBC-ACEC-1C8FD4A0A8D6" name="wda">
          <extensionElements>
             <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
             <signavio:signavioMetaData metaKey="userstory" metaValue="[]"/>
          </extensionElements>
-      </dataObject>
+      </dataObjectReference>
       <startEvent id="sid-DE9C1019-FD44-4509-9E3C-C387C9E51824" isInterrupting="true" name="Verzeichnisantrag&#10;erhalten">
          <extensionElements>
             <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
@@ -1292,7 +1292,7 @@
          <extensionElements>
             <signavio:signavioMetaData metaKey="userstory" metaValue="[]"/>
          </extensionElements>
-         <text>some more 
+         <text>some more
 text to read</text>
       </textAnnotation>
    </process>

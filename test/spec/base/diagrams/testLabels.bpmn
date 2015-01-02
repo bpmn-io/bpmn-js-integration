@@ -8,7 +8,7 @@
     <bpmn2:inclusiveGateway id="InclusiveGateway_1" name="A very very longish text with&#xD;&#xA;a line break in between"/>
     <bpmn2:dataStoreReference id="_DataStoreReference_3" name="Data Store 1" dataStoreRef="DataStore_1"/>
     <bpmn2:subProcess id="SubProcess_1" name="Sub Process 1">
-      <bpmn2:dataObject id="DataObject_1" name="Data Object 1"/>
+      <bpmn2:dataObjectReference id="DataObject_1" name="Data Object 1"/>
       <bpmn2:task id="Task_3" name="Task 3"/>
       <bpmn2:boundaryEvent id="BoundaryEvent_3" name="Boundary 3" attachedToRef="Task_3"/>
     </bpmn2:subProcess>

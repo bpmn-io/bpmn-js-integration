@@ -65,7 +65,7 @@
             <signavio:signavioMetaData metaKey="userstory" metaValue="[]"/>
          </extensionElements>
       </sequenceFlow>
-      <association associationDirection="None" id="sid-E6E352A9-1322-4E22-9742-0973CDBE6455" targetRef="sid-31394AAC-A3DB-4DBA-90D0-6B2E0B229F36">
+      <association associationDirection="None" id="sid-E6E352A9-1322-4E22-9742-0973CDBE6455" sourceRef="sid-C7031B1A-7F7E-4846-B046-73C638547449" targetRef="sid-31394AAC-A3DB-4DBA-90D0-6B2E0B229F36">
          <extensionElements>
             <signavio:signavioMetaData metaKey="userstory" metaValue="[]"/>
          </extensionElements>

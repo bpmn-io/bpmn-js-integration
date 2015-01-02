@@ -13,11 +13,11 @@
             <targetRef>sid-D4C7EC0B-FCDD-4405-8B3D-98204DB26B08</targetRef>
          </dataOutputAssociation>
       </task>
-      <dataObject id="sid-D4C7EC0B-FCDD-4405-8B3D-98204DB26B08" isCollection="false" name="">
+      <dataObjectReference id="sid-D4C7EC0B-FCDD-4405-8B3D-98204DB26B08" name="">
          <extensionElements>
             <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffff"/>
          </extensionElements>
-      </dataObject>
+      </dataObjectReference>
    </process>
    <bpmndi:BPMNDiagram id="sid-10f3b36d-dfc6-4839-a949-78c9b4dad290">
       <bpmndi:BPMNPlane bpmnElement="sid-1af56c3c-0231-454e-9177-2c00834c33ec" id="sid-be77ace7-fad6-4031-8a01-7965aedfcdb0">
