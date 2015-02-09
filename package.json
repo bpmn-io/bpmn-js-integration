@@ -30,6 +30,9 @@
   ],
   "license": "MIT",
   "private": true,
+  "browser": {
+    "bpmn-js": "./vendor/bpmn.js"
+  },
   "devDependencies": {
     "async": "^0.9.0",
     "bpmn-js": "^0.8.0",

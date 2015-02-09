@@ -1,3 +1,5 @@
+var path = require('path');
+
 module.exports = function(grunt) {
 
   require('load-grunt-tasks')(grunt);
@@ -48,23 +50,23 @@ module.exports = function(grunt) {
     browserify: {
       options: {
         browserifyOptions: {
-          builtins: false
+          builtins: false,
+          insertGlobalVars: {
+            process: function () {
+                return 'undefined';
+            },
+            Buffer: function () {
+                return 'undefined';
+            }
+          }
         },
-        bundleOptions: {
-          detectGlobals: false,
-          insertGlobalVars: [],
-          debug: true
+        preBundleCB: function(b) {
+          b.require(path.resolve('./vendor/bpmn.js'), { expose: 'bpmn-js/lib/Modeler' });
         }
       },
-
       modeler: {
         files: {
           '<%= config.dist %>/bpmn.js': [ '<%= config.sources %>/bpmn.js' ],
-        },
-        options: {
-          alias: [
-            '<%= config.sources %>/bpmn.js:bpmn-js/lib/Modeler'
-          ]
         }
       }
     },
