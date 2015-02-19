@@ -1,5 +1,7 @@
 # bpmn-js-integration
 
+[![Build Status](https://travis-ci.org/bpmn-io/bpmn-js-integration.svg?branch=master)](https://travis-ci.org/bpmn-io/bpmn-js-integration)
+
 This project runs a number of test suites against [bpmn-js](https://github.com/bpmn-io/bpmn-js) to ensure that diagrams are correctly rendered.
 
 Included suites:
