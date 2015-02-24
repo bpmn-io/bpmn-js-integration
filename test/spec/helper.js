@@ -14,6 +14,8 @@ var BPMN_XSD = require.resolve('bpmn-moddle/resources/bpmn/xsd/BPMN20.xsd');
 
 var browser = require('../integration/browser');
 
+var bpmnJsDistPath = fs.realpathSync('dist/bpmn.js');
+
 
 function escapeString(str) {
   return str.replace(/'/g, '\\\'').replace(/[\n\r]+/g, '\\n');
@@ -49,7 +51,7 @@ Helper.prototype.createTestTemplate = function(test, done) {
 
     var templateContents = read(test.skeleton);
 
-    var libraryPath = fs.realpathSync('dist/bpmn.js');
+    var libraryPath = path.relative(path.dirname(test.html), bpmnJsDistPath);
 
     var testHtml = templateContents
                      .replace(/\{\{test-bpmn-path\}\}/g, test.bpmn)
