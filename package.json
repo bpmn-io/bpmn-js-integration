@@ -8,7 +8,7 @@
   "main": "lib/main.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bpmn-io/bpmn-js"
+    "url": "https://github.com/bpmn-io/bpmn-js-integration"
   },
   "keywords": [
     "bpmn",
@@ -54,7 +54,7 @@
   "dependencies": {
     "bpmn-js": "^0.11.0",
     "bpmn-js-cli": "^0.11.0",
-    "bpmn-moddle": "^0.9.0",
+    "bpmn-moddle": "^0.10.0",
     "lodash": "^3.0.0"
   }
 }
