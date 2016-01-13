@@ -43,7 +43,7 @@ module.exports = function(grunt) {
     },
 
     clean: {
-      temp: [ '<%= config.temp %>', '<%= config.dist %>' ]
+      temp: [ '<%= config.temp %>/integration', '<%= config.dist %>' ]
     },
 
 

@@ -1,9 +1,11 @@
 var Helper = require('../helper');
 
+var MiwgHelper = require('../miwg-helper');
+
 
 describe('bpmn-miwg-test-suite', function() {
 
-  var helper = new Helper('../bpmn-miwg-test-suite/Reference', 'bpmn-miwg-test-suite'),
+  var helper = new Helper(MiwgHelper.resourcePath('Reference'), 'bpmn-miwg-test-suite'),
       testBatchImport = helper.testBatchImport;
 
 

@@ -5,13 +5,14 @@ var glob = require('glob'),
     mkdirp = require('mkdirp'),
     async = require('async');
 
+var MiwgHelper = require('../miwg-helper');
+
 
 mkdirp.sync('tmp/integration-diff');
 
 describe('image diff', function() {
 
-
-  var dirA = '../bpmn-miwg-test-suite/bpmn.io 0.1.3',
+  var dirA = MiwgHelper.resourcePath('bpmn.io 0.1.3'),
       dirB = 'tmp/integration/bpmn-miwg-test-suite';
 
 
