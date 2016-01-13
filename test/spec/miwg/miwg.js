@@ -7,8 +7,18 @@ describe('bpmn-miwg-test-suite', function() {
       testBatchImport = helper.testBatchImport;
 
 
+  function ensureValidBpmn20(err, results, done) {
+    if (err) {
+      return done(err);
+    }
+
+    helper.validateBasic(results);
+    helper.validateBpmn20(results, done);
+  }
+
+
   this.timeout(20000);
 
-  it('should execute testsuite', testBatchImport('*.bpmn'));
+  it('should execute testsuite', testBatchImport('*.bpmn', ensureValidBpmn20));
 
 });
