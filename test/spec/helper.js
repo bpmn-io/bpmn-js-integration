@@ -255,7 +255,8 @@ Helper.prototype.testImport = function(bpmn, callback) {
           return callback(err, results, done);
         } else {
           self.validateBasic(results);
-          done(err);
+
+          done(err, results);
         }
       });
 
@@ -274,7 +275,7 @@ Helper.prototype.testBatchImport = function(pattern, callback) {
     var files = glob.sync(pattern, { cwd: self._basedir });
 
     _.forEach(files, function(f) {
-      tests.push(self.testImport(f));
+      tests.push(self.testImport(f, callback));
     });
 
     async.series(tests, done);
