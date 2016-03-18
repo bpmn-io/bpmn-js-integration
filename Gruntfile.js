@@ -51,6 +51,7 @@ module.exports = function(grunt) {
       options: {
         browserifyOptions: {
           builtins: false,
+          debug: true,
           insertGlobalVars: {
             process: function () {
                 return 'undefined';
