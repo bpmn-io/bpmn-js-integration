@@ -1,11 +1,11 @@
 language: node_js
-node_js: '0.10'
+node_js: 'node'
 
 script:
-  - MIWG_PATH=tmp/bpmn-miwg-test-suite grunt
+  - MIWG_PATH=tmp/bpmn-miwg-test-suite npm run all
 
 before_install:
   - mkdir -p tmp
   - git clone https://github.com/bpmn-io/bpmn-miwg-test-suite.git tmp/bpmn-miwg-test-suite
-  - npm install -g grunt-cli wiredeps
-  - wiredeps --branch=$TRAVIS_BRANCH --tag=$TRAVIS_TAG --verbose
+  - npm install -g wiredeps@0.2
+  - wiredeps --default-branch=master --branch=$TRAVIS_BRANCH --tag=$TRAVIS_TAG --verbose
