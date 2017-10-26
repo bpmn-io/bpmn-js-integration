@@ -38,17 +38,17 @@
     "async": "^0.9.0",
     "chai": "^1.9.1",
     "glob": "^3.2.9",
-    "grunt": "^0.4.3",
+    "grunt": "^0.4.5",
     "grunt-browserify": "^3.3.0",
     "grunt-cli": "^1.2.0",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-uglify": "^0.5.1",
-    "grunt-contrib-watch": "^0.5.0",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-uglify": "^3.1.0",
+    "grunt-contrib-watch": "^1.0.0",
     "grunt-mocha-test": "^0.11.0",
     "load-grunt-tasks": "^0.3.0",
     "mkdirp": "^0.3.5",
     "phantomjs": "^1.9.7-8",
-    "xsd-schema-validator": "^0.1.0"
+    "xsd-schema-validator": "^0.5.0"
   },
   "optionalDependencies": {
     "node-resemble": "^1.1.1"
