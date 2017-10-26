@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "integration tests for bpmn-js",
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "all": "grunt"
   },
   "main": "lib/main.js",
   "repository": {
@@ -39,6 +40,7 @@
     "glob": "^3.2.9",
     "grunt": "^0.4.3",
     "grunt-browserify": "^3.3.0",
+    "grunt-cli": "^1.2.0",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-uglify": "^0.5.1",
     "grunt-contrib-watch": "^0.5.0",
@@ -52,9 +54,9 @@
     "node-resemble": "^1.1.1"
   },
   "dependencies": {
-    "bpmn-js": "^0.21.0",
+    "bpmn-js": "^0.23.0",
     "bpmn-js-cli": "^0.15.0",
-    "bpmn-moddle": "^0.12.2",
+    "bpmn-moddle": "^0.14.0",
     "lodash": "^3.0.0"
   }
 }
