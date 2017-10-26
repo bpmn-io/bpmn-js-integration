@@ -9,13 +9,6 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    config: {
-      sources: 'lib',
-      tests: 'test',
-      dist: 'dist',
-      temp: 'tmp'
-    },
-
     mochaTest: {
       options: {
         reporter: 'spec',
@@ -42,10 +35,7 @@ module.exports = function(grunt) {
       }
     },
 
-    clean: {
-      temp: [ '<%= config.temp %>/integration', '<%= config.dist %>' ]
-    },
-
+    clean: [ 'tmp/integration', 'dist' ],
 
     browserify: {
       options: {
@@ -67,7 +57,7 @@ module.exports = function(grunt) {
       },
       modeler: {
         files: {
-          '<%= config.dist %>/bpmn.js': [ '<%= config.sources %>/bpmn.js' ],
+          'dist/bpmn.js': [ 'lib/bpmn.js' ],
         }
       }
     },
@@ -83,14 +73,14 @@ module.exports = function(grunt) {
       },
       modeler: {
         files: {
-          '<%= config.dist %>/bpmn.min.js': [ '<%= config.dist %>/bpmn.js' ]
+          'dist/bpmn.min.js': [ 'dist/bpmn.js' ]
         }
       }
     },
 
     watch: {
       test: {
-        files: [ '<%= config.sources %>/**/*.js', '<%= config.tests %>/spec/**/*.js' ],
+        files: [ 'lib/**/*.js', 'test/spec/**/*.js' ],
         tasks: [ 'test' ]
       }
     }
