@@ -15,8 +15,6 @@ Included suites:
 Install dependencies via npm
 
 ```
-npm install -g wiredeps
-wiredeps
 npm install
 ```
 
@@ -30,7 +28,7 @@ npm link ../bpmn-js
 ## Execute Tests
 
 ```
-grunt (auto-test || test)
+npm run all
 ```
 
 This will generate the test results to `tmp/integration`.
