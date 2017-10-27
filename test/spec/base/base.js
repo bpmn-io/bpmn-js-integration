@@ -1,14 +1,17 @@
 var Helper = require('../helper');
 
-
-describe('base', function() {
-
-  var helper = new Helper(__dirname + '/diagrams', 'base'),
-      testBatchImport = helper.testBatchImport;
+var describeSuite = Helper.describeSuite;
 
 
-  this.timeout(120000);
+function validateBasic(results, done) {
+  try {
+    this.validateBasic(results);
+  } catch (e) {
+    return done(e);
+  }
 
-  it('should execute testsuite', testBatchImport('*.bpmn'));
+  return done(null, results);
+}
 
-});
+
+describeSuite('base', __dirname + '/diagrams', validateBasic);

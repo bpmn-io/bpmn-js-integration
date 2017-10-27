@@ -2,25 +2,21 @@ var Helper = require('../helper');
 
 var MiwgHelper = require('../miwg-helper');
 
-
-describe('bpmn-miwg-test-suite', function() {
-
-  var helper = new Helper(MiwgHelper.resourcePath('Reference'), 'bpmn-miwg-test-suite'),
-      testBatchImport = helper.testBatchImport;
+var describeSuite = Helper.describeSuite;
 
 
-  function ensureValidBpmn20(err, results, done) {
-    if (err) {
-      return done(err);
-    }
+function validateSchema(results, done) {
 
-    helper.validateBasic(results);
-    helper.validateBpmn20(results, done);
+  try {
+    this.validateBasic(results);
+    this.validateBpmn20(results, done);
+  } catch (e) {
+    return done(e);
   }
+}
 
 
-  this.timeout(20000);
+var miwgReferenceDirectory = MiwgHelper.resourcePath('Reference');
 
-  it('should execute testsuite', testBatchImport('*.bpmn', ensureValidBpmn20));
 
-});
+describeSuite('bpmn-miwg-test-suite', miwgReferenceDirectory, validateSchema);

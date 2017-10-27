@@ -37,7 +37,6 @@ function Helper(basedir, suiteName) {
   this.testExecute = this.testExecute.bind(this);
 
   this.testImport = this.testImport.bind(this);
-  this.testBatchImport = this.testBatchImport.bind(this);
 }
 
 module.exports = Helper;
@@ -231,7 +230,7 @@ Helper.prototype.testExecute = function(script, bpmn, callback) {
   };
 };
 
-Helper.prototype.testImport = function(bpmn, callback) {
+Helper.prototype.testImport = function(bpmn, validate) {
 
   var self = this;
 
@@ -251,33 +250,34 @@ Helper.prototype.testImport = function(bpmn, callback) {
 
       self.runTest(test, function(err, results) {
 
-        if (callback) {
-          return callback(err, results, done);
-        } else {
-          self.validateBasic(results);
-
-          done(err, results);
+        if (err) {
+          return done(err);
         }
+
+        return validate.call(self, results, done);
       });
 
     });
+
   };
+
 };
 
-Helper.prototype.testBatchImport = function(pattern, callback) {
 
-  var self = this;
+module.exports.describeSuite = function(suiteName, baseDir, validate) {
 
-  return function(done) {
+  describe(suiteName, function() {
 
-    var tests = [];
+    var helper = new Helper(baseDir, suiteName);
 
-    var files = glob.sync(pattern, { cwd: self._basedir });
+    var diagramFiles = glob.sync('*.bpmn', { cwd: baseDir });
 
-    _.forEach(files, function(f) {
-      tests.push(self.testImport(f, callback));
+    diagramFiles.forEach(function(file) {
+
+      it('import <' + file + '>', helper.testImport(file, validate));
+
     });
 
-    async.series(tests, done);
-  };
-};
+  });
+
+}
