@@ -1,4 +1,4 @@
-var phantomjs = require('phantomjs'),
+var phantomjs = require('phantomjs-prebuilt'),
     spawn = require('child_process').spawn;
 
 function log(err, message) {
