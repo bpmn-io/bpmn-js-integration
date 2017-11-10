@@ -30,7 +30,7 @@
       "requires": {
         "lodash": "3.10.1",
         "moddle": "1.0.0",
-        "moddle-xml": "1.1.0"
+        "moddle-xml": "bpmn-io/moddle-xml"
       }
     },
     "component-classes": {
@@ -135,7 +135,7 @@
       }
     },
     "moddle-xml": {
-      "version": "1.1.0",
+      "version": "bpmn-io/moddle-xml",
       "requires": {
         "lodash": "3.10.1",
         "moddle": "1.0.0",
