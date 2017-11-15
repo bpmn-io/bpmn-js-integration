@@ -29,7 +29,7 @@
       "version": "bpmn-io/bpmn-moddle",
       "requires": {
         "lodash": "3.10.1",
-        "moddle": "1.0.0",
+        "moddle": "bpmn-io/moddle",
         "moddle-xml": "bpmn-io/moddle-xml"
       }
     },
@@ -129,7 +129,7 @@
       }
     },
     "moddle": {
-      "version": "1.0.0",
+      "version": "bpmn-io/moddle",
       "requires": {
         "lodash": "3.10.1"
       }
@@ -139,15 +139,15 @@
       "requires": {
         "lodash": "3.10.1",
         "moddle": "1.0.0",
-        "sax": "0.6.1",
+        "saxen": "5.3.1",
         "tiny-stack": "0.1.0"
       }
     },
     "object-refs": {
       "version": "0.1.1"
     },
-    "sax": {
-      "version": "0.6.1"
+    "saxen": {
+      "version": "5.3.1"
     },
     "tiny-stack": {
       "version": "0.1.0"
