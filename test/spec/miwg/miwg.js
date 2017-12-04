@@ -9,7 +9,7 @@ function validateSchema(results, done) {
 
   try {
     this.validateBasic(results);
-    this.validateBpmn20(results, done);
+    return this.validateBpmn20(results, done);
   } catch (e) {
     return done(e);
   }
