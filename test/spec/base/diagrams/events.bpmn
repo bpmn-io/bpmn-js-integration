@@ -5,7 +5,9 @@
       <bpmn2:timerEventDefinition id="TimerEventDefinition_1"/>
     </bpmn2:startEvent>
     <bpmn2:startEvent id="StartEvent_2">
-      <bpmn2:conditionalEventDefinition id="ConditionalEventDefinition_1"/>
+      <bpmn2:conditionalEventDefinition id="ConditionalEventDefinition_1">
+        <bpmn2:condition>${true}</bpmn2:condition>
+      </bpmn2:conditionalEventDefinition>
     </bpmn2:startEvent>
     <bpmn2:startEvent id="StartEvent_3">
       <bpmn2:signalEventDefinition id="SignalEventDefinition_1"/>
@@ -36,7 +38,9 @@
       <bpmn2:signalEventDefinition id="SignalEventDefinition_4"/>
     </bpmn2:endEvent>
     <bpmn2:intermediateCatchEvent id="IntermediateCatchEvent_2">
-      <bpmn2:conditionalEventDefinition id="ConditionalEventDefinition_2"/>
+      <bpmn2:conditionalEventDefinition id="ConditionalEventDefinition_2">
+        <bpmn2:condition>${true}</bpmn2:condition>
+      </bpmn2:conditionalEventDefinition>
     </bpmn2:intermediateCatchEvent>
     <bpmn2:intermediateCatchEvent id="IntermediateCatchEvent_4">
       <bpmn2:messageEventDefinition id="MessageEventDefinition_2"/>

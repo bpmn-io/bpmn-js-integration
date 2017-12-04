@@ -2620,7 +2620,7 @@ text to read</text>
             <signavio:signavioMetaData metaKey="userstory" metaValue=""/>
          </extensionElements>
       </sequenceFlow>
-      <association associationDirection="One" id="sid-6A166DFA-CFD0-4D55-B3B6-F8668726AD01" name="" sourceRef="sid-E6557B92-6552-4DA1-B94F-BC890CA0918B" targetRef="sid-722A167C-E8B6-41A5-BADD-49030E0796FE">
+      <association associationDirection="One" id="sid-6A166DFA-CFD0-4D55-B3B6-F8668726AD01" sourceRef="sid-E6557B92-6552-4DA1-B94F-BC890CA0918B" targetRef="sid-722A167C-E8B6-41A5-BADD-49030E0796FE">
          <extensionElements>
             <signavio:signavioMetaData metaKey="userstory" metaValue="[]"/>
          </extensionElements>

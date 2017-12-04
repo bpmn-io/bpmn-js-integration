@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" id="_l1jCIHHXEeK-d9X8LxH7pQ" targetNamespace="http://bpmn.io/schema/bpmn">
   <bpmn2:process id="Process_1">
-    <bpmn2:ioSpecification id="InputOutputSpecification_1">
-      <bpmn2:dataOutput id="DataOutput_1" name="Data Output 1"/>
-    </bpmn2:ioSpecification>
+    <bpmn:ioSpecification id="g9sghjg">
+      <bpmn:dataInput id="CheckDataTaskInput" isCollection="true" itemSubjectRef="TravelOrdersItem" name="CheckDataTaskLoop.TravelOrders"/>
+      <bpmn:dataOutput id="CheckDataTaskOutput" isCollection="true" itemSubjectRef="TravelOrdersItem" name="CheckDataTaskLoop.TravelOrders"/>
+      <bpmn:inputSet id="dsagj" name="CheckDataTaskInputSet">
+        <bpmn:dataInputRefs>CheckDataTaskInput</bpmn:dataInputRefs>
+      </bpmn:inputSet>
+      <bpmn:outputSet id="gasgsag" name="CheckDataTaskOutputSet">
+        <bpmn:dataOutputRefs>CheckDataTaskOutput</bpmn:dataOutputRefs>
+      </bpmn:outputSet>
+    </bpmn:ioSpecification>
     <bpmn2:startEvent id="StartEvent_1" name="Start Event 1"/>
     <bpmn2:inclusiveGateway id="InclusiveGateway_1" name="A very very longish text with&#xD;&#xA;a line break in between"/>
     <bpmn2:dataStoreReference id="_DataStoreReference_3" name="Data Store 1" dataStoreRef="DataStore_1"/>
