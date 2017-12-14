@@ -10,7 +10,6 @@
         "bpmn-moddle": "bpmn-io/bpmn-moddle",
         "diagram-js": "bpmn-io/diagram-js",
         "diagram-js-direct-editing": "bpmn-io/diagram-js-direct-editing",
-        "diagram-js-origin": "0.15.2",
         "ids": "0.2.0",
         "inherits": "2.0.3",
         "lodash": "3.10.1",
@@ -86,12 +85,6 @@
         "min-dom": "0.2.0"
       }
     },
-    "diagram-js-origin": {
-      "version": "0.15.2",
-      "requires": {
-        "tiny-svg": "0.1.3"
-      }
-    },
     "didi": {
       "version": "0.1.1"
     },
@@ -138,8 +131,8 @@
       "version": "bpmn-io/moddle-xml",
       "requires": {
         "lodash": "3.10.1",
-        "moddle": "1.0.0",
-        "saxen": "5.3.1",
+        "moddle": "bpmn-io/moddle",
+        "saxen": "5.5.0",
         "tiny-stack": "0.1.0"
       }
     },
@@ -147,7 +140,7 @@
       "version": "0.1.1"
     },
     "saxen": {
-      "version": "5.3.1"
+      "version": "5.5.0"
     },
     "tiny-stack": {
       "version": "0.1.0"
