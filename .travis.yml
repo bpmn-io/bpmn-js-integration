@@ -7,5 +7,3 @@ script:
 before_install:
   - mkdir -p tmp
   - git clone https://github.com/bpmn-io/bpmn-miwg-test-suite.git tmp/bpmn-miwg-test-suite
-  - npm install -g wiredeps@0.2
-  - wiredeps --default-branch=master --branch=$TRAVIS_BRANCH --tag=$TRAVIS_TAG --verbose
