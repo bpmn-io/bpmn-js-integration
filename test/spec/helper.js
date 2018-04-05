@@ -3,10 +3,13 @@
 var path = require('path'),
     fs = require('fs'),
     mkdirp = require('mkdirp'),
-    _ = require('lodash'),
     async = require('async'),
     glob = require('glob');
 
+var {
+  forEach,
+  isFunction
+} = require('min-dash');
 
 var SchemaValidator = require('xsd-schema-validator');
 
@@ -150,8 +153,8 @@ Helper.prototype.runTest = function(test, done) {
 };
 
 Helper.prototype.validateBasic = function(results) {
-  _.forEach(results, function(subSteps, step) {
-    _.forEach(subSteps, function(subStep, name) {
+  forEach(results, function(subSteps, step) {
+    forEach(subSteps, function(subStep, name) {
       expect(subStep.error).to.eql(undefined, 'expected <' + step + '#' + name + '> to succeed');
       expect(subStep.status).to.eql('SUCCESS', 'expected <' + step + '#' + name + '> to succeed');
     });
@@ -164,7 +167,7 @@ Helper.prototype.validateBpmn20 = function(results, done) {
 
   var validations = [];
 
-  _.forEach(results, function(subSteps, step) {
+  forEach(results, function(subSteps, step) {
     if (subSteps['bpmn']) {
       validations.push(function(done) {
         self.validateXSD(read(subSteps['bpmn'].file), done);
@@ -196,7 +199,7 @@ Helper.prototype.testExecute = function(script, bpmn, callback) {
 
   var self = this;
 
-  if (_.isFunction(bpmn)) {
+  if (isFunction(bpmn)) {
     callback = bpmn;
     bpmn = null;
   }

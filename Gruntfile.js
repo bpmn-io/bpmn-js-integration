@@ -39,20 +39,15 @@ module.exports = function(grunt) {
 
     browserify: {
       options: {
-        browserifyOptions: {
-          builtins: false,
-          debug: true,
-          insertGlobalVars: {
-            process: function () {
-                return 'undefined';
-            },
-            Buffer: function () {
-                return 'undefined';
-            }
-          }
-        },
+        transform: [
+          [ 'babelify', {
+            global: true
+          } ]
+        ],
         preBundleCB: function(b) {
-          b.require(path.resolve('./vendor/bpmn.js'), { expose: 'bpmn-js/lib/Modeler' });
+          b.require(path.resolve('./vendor/bpmn.js'), {
+            expose: 'bpmn-modeler'
+          });
         }
       },
       modeler: {

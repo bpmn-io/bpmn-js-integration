@@ -35,6 +35,9 @@
     "bpmn-js": "./vendor/bpmn.js"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babelify": "^8.0.0",
     "async": "^0.9.2",
     "chai": "^4.1.2",
     "glob": "^7.1.2",
@@ -57,6 +60,6 @@
     "bpmn-js": "^1.0.3",
     "bpmn-js-cli": "^0.16.3",
     "bpmn-moddle": "^5.1.1",
-    "lodash": "^3.0.0"
+    "min-dash": "^3.0.0"
   }
 }
