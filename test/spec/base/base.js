@@ -13,4 +13,4 @@ function validateBasic(results, done) {
 }
 
 
-describeSuite('base', __dirname + '/diagrams', validateBasic);
+describeSuite('base', __dirname + '/diagrams', validateBasic, { timeout: 4000 });

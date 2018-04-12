@@ -267,9 +267,13 @@ Helper.prototype.testImport = function(bpmn, validate) {
 };
 
 
-module.exports.describeSuite = function(suiteName, baseDir, validate) {
+module.exports.describeSuite = function(suiteName, baseDir, validate, options) {
 
   describe(suiteName, function() {
+
+    if (options && options.timeout) {
+      this.timeout(options.timeout);
+    }
 
     var helper = new Helper(baseDir, suiteName);
 
