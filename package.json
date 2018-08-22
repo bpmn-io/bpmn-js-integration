@@ -57,7 +57,7 @@
     "node-resemble": "^1.1.1"
   },
   "dependencies": {
-    "bpmn-js": "^2.4.1",
+    "bpmn-js": "^2.5.0",
     "bpmn-js-cli": "^0.16.3",
     "bpmn-moddle": "^5.1.5",
     "min-dash": "^3.0.0"
