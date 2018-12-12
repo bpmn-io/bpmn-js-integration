@@ -1,5 +1,5 @@
 var CliSnapshotModule = require('../lib/snapshot'),
-    BpmnJSCli = require('bpmn-js-cli');
+    BpmnJSCli = require('bpmn-js-cli').default;
 
 var Modeler = require('bpmn-js/lib/Modeler').default;
 
