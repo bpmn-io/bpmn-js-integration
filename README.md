@@ -34,6 +34,21 @@ npm run all
 This will generate the test results to `tmp/integration`.
 
 
+## Generate MIWG Suite Results
+
+```sh
+git clone git@github.com:bpmn-io/bpmn-js-integration.git
+git clone git@github.com:bpmn-miwg/bpmn-miwg-test-suite.git
+
+cd bpmn-js-integration
+npm install
+npm run all
+
+cd tmp/integration/bpmn-miwg-test-suite
+ls -lla
+```
+
+
 ## License
 
 MIT
