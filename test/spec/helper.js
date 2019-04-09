@@ -190,8 +190,13 @@ Helper.prototype.validateXSD = function(xml, done) {
       return done(err);
     }
 
-    expect(result.valid).to.be.true;
-    done();
+    try {
+      expect(result.valid).to.be.true;
+    } catch (assertionError) {
+      return done(assertionError);
+    }
+
+    return done();
   });
 };
 
@@ -224,13 +229,23 @@ Helper.prototype.testExecute = function(script, bpmn, callback) {
         if (callback) {
           return callback(err, results, done);
         } else {
-          self.validateBasic(results);
-          done(err);
+          if (err) {
+            return done(err);
+          }
+
+          try {
+            self.validateBasic(results);
+          } catch (assertionError) {
+            return done(assertionError);
+          }
+
+          return done();
         }
       });
 
     });
   };
+
 };
 
 Helper.prototype.testImport = function(bpmn, validate) {

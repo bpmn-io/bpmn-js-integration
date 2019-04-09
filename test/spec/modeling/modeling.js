@@ -12,8 +12,13 @@ describe('modeling', function() {
       return done(err);
     }
 
-    helper.validateBasic(results);
-    helper.validateBpmn20(results, done);
+    try {
+      helper.validateBasic(results);
+
+      helper.validateBpmn20(results, done);
+    } catch (err) {
+      return done(err);
+    }
   }
 
 
