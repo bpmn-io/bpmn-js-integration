@@ -108,14 +108,23 @@ Helper.prototype.createTest = function(options, done) {
     bpmn = path.resolve('test/integration/skeleton/initial.bpmn');
   }
 
+  /**
+   * Make Windows happy. Returns relative path without backslashes.
+   *
+   * @param {String} absolutePath
+   */
+  function fixPath(absolutePath) {
+    return path.relative(process.cwd(), absolutePath).replace(/\\/g, '/');
+  }
+
   var test = {
     name: name,
     skeleton: skeleton,
-    script: script,
-    bpmn: bpmn,
-    baseName: baseName,
-    base: path.dirname(baseName),
-    html: baseName + '.html'
+    script: script && fixPath(script),
+    bpmn: bpmn && fixPath(bpmn),
+    baseName: fixPath(baseName),
+    base: fixPath(path.dirname(baseName)),
+    html: fixPath(baseName + '.html')
   };
 
   this.createTestTemplate(test, done);
@@ -210,7 +219,7 @@ Helper.prototype.testExecute = function(script, bpmn, callback) {
   }
 
   var data = {
-    name: path.join(path.dirname(script), path.basename(script, '.js')),
+    name: path.posix.join(path.dirname(script), path.basename(script, '.js')),
     script: script,
     bpmn: bpmn,
     skeleton: 'test/integration/skeleton/modeling.html'
@@ -253,7 +262,7 @@ Helper.prototype.testImport = function(bpmn, validate) {
   var self = this;
 
   var data = {
-    name: path.join(path.dirname(bpmn), path.basename(bpmn, '.bpmn')),
+    name: path.posix.join(path.dirname(bpmn), path.basename(bpmn, '.bpmn')),
     bpmn: bpmn,
     skeleton: 'test/integration/skeleton/import.html'
   };
