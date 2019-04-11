@@ -4,6 +4,7 @@
   "description": "integration tests for bpmn-js",
   "scripts": {
     "test": "grunt test",
+    "dev": "grunt auto-test",
     "all": "grunt"
   },
   "main": "lib/main.js",
