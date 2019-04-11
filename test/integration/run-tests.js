@@ -37,7 +37,7 @@ function next() {
 
   idx++;
   results = {};
-  snapshot = 0;
+  snapshot = -1;
   test = tests[idx];
 
   if (!test) {
@@ -103,7 +103,11 @@ page.onConsoleMessage = function(msg) {
       switch(element) {
         case 'reached':
           result[element] = { status: 'SUCCESS', file: baseName + '-' + step + '.png' };
-          page.render(baseName + '-' + step + '.png');
+
+          if (name !== 'page-open') {
+            page.render(baseName + '-' + step + '.png');
+          }
+
           break;
 
         case 'bpmn':
@@ -130,7 +134,11 @@ function executeTest(test) {
   log('execute ' + test.name);
 
   page.open(fileName, function(status) {
-    log('loaded ' + test.name);
+    page.onConsoleMessage('snapshot page-open reached ' + status.toUpperCase());
+
+    if (status === 'fail') {
+      page.onConsoleMessage('done');
+    }
   });
 }
 
