@@ -2,17 +2,18 @@
 
 [![Build Status](https://travis-ci.org/bpmn-io/bpmn-js-integration.svg?branch=master)](https://travis-ci.org/bpmn-io/bpmn-js-integration)
 
-This project runs a number of test suites against [bpmn-js](https://github.com/bpmn-io/bpmn-js) to ensure that diagrams are correctly rendered.
+This project runs a number of integration tests agains [bpmn-js](https://github.com/bpmn-io/bpmn-js):
 
-Included suites:
-
-*   basic models
-*   [miwg diagrams](https://github.com/bpmn-miwg/bpmn-miwg-test-suite) provided by the [BPMN Model Interchange Working Group](https://github.com/bpmn-miwg)
+* basic modeling scenarios
+* various diagram import / export tests
+* import / export tests for [MIWG diagrams](https://github.com/bpmn-miwg/bpmn-miwg-test-suite) provided by the [BPMN Model Interchange Working Group](https://github.com/bpmn-miwg)
 
 
 ## Setup
 
-Install dependencies via npm
+> :warning: You must have NodeJS and a Java JDK installed for the following steps to work.
+
+Install dependencies:
 
 ```
 npm install
@@ -22,6 +23,12 @@ Optionally link snapshot versions of other libraries into the project:
 
 ```
 npm link ../bpmn-js
+```
+
+Optionally clone [MIWG test suite](https://github.com/bpmn-miwg/bpmn-miwg-test-suite) into sibling folder:
+
+```
+(cd .. && git clone git@github.com:bpmn-miwg/bpmn-miwg-test-suite.git)
 ```
 
 
