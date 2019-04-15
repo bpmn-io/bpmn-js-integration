@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/bpmn-io/bpmn-js-integration.svg?branch=master)](https://travis-ci.org/bpmn-io/bpmn-js-integration)
 
-This project runs a number of integration tests agains [bpmn-js](https://github.com/bpmn-io/bpmn-js):
+This project runs a number of integration tests against [bpmn-js](https://github.com/bpmn-io/bpmn-js):
 
 * basic modeling scenarios
 * various diagram import / export tests
@@ -11,7 +11,7 @@ This project runs a number of integration tests agains [bpmn-js](https://github.
 
 ## Setup
 
-> :warning: You must have NodeJS and a Java JDK installed for the following steps to work.
+> :warning: You must have NodeJS, and a Java JDK installed for the following steps to work.
 
 Install dependencies:
 
@@ -34,11 +34,12 @@ Optionally clone [MIWG test suite](https://github.com/bpmn-miwg/bpmn-miwg-test-s
 
 ## Execute Tests
 
+Run all tests and generate the results to `tmp/integration` by executing:
+
 ```
 npm run all
 ```
 
-This will generate the test results to `tmp/integration`.
 
 
 ## Generate MIWG Suite Results
