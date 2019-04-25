@@ -11,34 +11,33 @@ describe('miwg rename', function() {
   it('should organize miwg test results according to import/export/roundtrip file pattern', function() {
 
     // rename import (svg|png) files
-    var importFiles = glob.sync('**/*-1-imported.+(svg|png)', { cwd: BASE });
+    var importFiles = glob.sync('**/*.+(svg|png)', { cwd: BASE });
 
     importFiles.forEach(function(f) {
-      var ext = path.extname(f),
-          base = path.basename(f),
+      var base = path.basename(f),
           dirname = path.dirname(f);
 
-      var newbase = base.replace('-1-imported' + ext, '-import' + ext);
+      var newbase = importRename(base);
 
       fs.renameSync(path.join(BASE, f), path.join(BASE, dirname, newbase));
     });
 
 
     // rename roundtrip (bpmn) files
-    var roundtripFiles = glob.sync('**/*-1-imported.bpmn', { cwd: BASE });
+    var roundtripFiles = glob.sync('*.bpmn', { cwd: BASE });
 
     roundtripFiles.forEach(function(f) {
-      var ext = path.extname(f),
-          base = path.basename(f),
+      var base = path.basename(f),
           dirname = path.dirname(f);
 
-      var newbase = base.replace('-1-imported' + ext, '-roundtrip' + ext);
+      var newbase = roundtripRename(base);
 
       fs.renameSync(path.join(BASE, f), path.join(BASE, dirname, newbase));
     });
 
 
-    // patch html / json files
+    // patch path names in html / json files
+    // to match renamed resources
     var outputFiles = glob.sync('**/*.+(html|json)', { cwd: BASE });
 
     outputFiles.forEach(function(f) {
@@ -47,9 +46,7 @@ describe('miwg rename', function() {
 
       var contents = fs.readFileSync(filePath, 'utf-8');
 
-      var replaced = contents
-            .replace(/-1-imported.(svg|png)/g, '-import.$1')
-            .replace(/-1-imported.bpmn/g, '-roundtrip.bpmn');
+      var replaced = roundtripRename(importRename(contents));
 
       fs.writeFileSync(filePath, replaced);
     });
@@ -57,3 +54,26 @@ describe('miwg rename', function() {
   });
 
 });
+
+
+function roundtripRename(str) {
+
+  return str.replace(/-(\d)+-imported(-(\d)+)?\.bpmn/g, function(match, run, multi, diagramIndex) {
+    if (multi) {
+      return '.' + diagramIndex + '-roundtrip.bpmn';
+    } else {
+      return '-roundtrip.bpmn'
+    };
+  });
+}
+
+function importRename(str) {
+
+  return str.replace(/-(\d)+-imported(-(\d)+)?\.(svg|png)/g, function(match, run, multi, diagramIndex, ext) {
+    if (multi) {
+      return '.' + diagramIndex + '-import.' + ext;
+    } else {
+      return '-import' + ext;
+    };
+  });
+}
