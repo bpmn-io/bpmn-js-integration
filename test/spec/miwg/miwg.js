@@ -19,4 +19,9 @@ function validateSchema(results, done) {
 var miwgReferenceDirectory = MiwgHelper.resourcePath('Reference');
 
 
-describeSuite('bpmn-miwg-test-suite', miwgReferenceDirectory, validateSchema);
+describeSuite(
+  'bpmn-miwg-test-suite',
+  miwgReferenceDirectory,
+  validateSchema,
+  { timeout: 10000 }
+);
