@@ -26,7 +26,11 @@
 
       var container = document.getElementById('canvas');
 
-      var renderer = window.renderer = new BpmnJS({ container: container, width: '100%', height: '100%' });
+      var renderer = window.renderer = new BpmnJS({
+        container: container,
+        width: '100%',
+        height: '100%'
+      });
 
       var plan = 0;
 
@@ -34,20 +38,55 @@
       var initalProcess = '{{test-bpmn}}';
 
       renderer.importXML(initalProcess, function(err) {
-        if (err && err !== null) {
+        if (err) {
           console.log('snapshot initial reached FAIL\n' + err);
           return console.log('done');
         }
+
+        var diagrams = renderer.getDefinitions().diagrams;
+
+        return snapshotAndOpenNext(renderer, diagrams[0], diagrams, function(err) {
+          if (err) {
+            console.log('snapshot initial reached FAIL\n' + err);
+          }
+
+          console.log('done');
+        });
+      });
+
+
+      function snapshotAndOpenNext(renderer, currentDiagram, diagrams, done) {
 
         var cli  = renderer.get('cli'),
             canvas = renderer.get('canvas');
 
         canvas.zoom('fit-viewport');
 
-        cli.snapshot('imported');
+        var index = diagrams.indexOf(currentDiagram);
 
-        console.log('done');
-      });
+        // TODO(nikku): this is/could be asynchronous;
+        // we must properly await its completion
+        cli.snapshot('imported' + (diagrams.length > 1 ? '-' + (index + 1) : ''));
+
+        var next = diagrams[index + 1];
+
+        if (!next) {
+          return done();
+        }
+
+        return setTimeout(function() {
+
+          return renderer.open(next, function(err) {
+
+            if (err) {
+              return done(err);
+            }
+
+            return snapshotAndOpenNext(renderer, next, diagrams, done);
+          });
+        }, 500);
+      }
+
     }
 
     setTimeout(test, 250);
