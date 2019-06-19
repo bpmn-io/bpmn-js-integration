@@ -61,7 +61,7 @@
   "dependencies": {
     "bpmn-js": "^3.4.3",
     "bpmn-js-cli": "^1.0.0",
-    "bpmn-moddle": "^5.1.6",
+    "bpmn-moddle": "^5.2.0",
     "min-dash": "^3.0.0"
   }
 }
