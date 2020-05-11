@@ -3,7 +3,7 @@ var Helper = require('../helper');
 var describeSuite = Helper.describeSuite;
 
 
-function validateBasic(results, done) {
+function validateDiagram(results, done) {
   try {
     this.validateBasic(results);
     return this.validateBpmn20(results, done);
@@ -13,4 +13,4 @@ function validateBasic(results, done) {
 }
 
 
-describeSuite('base', __dirname + '/diagrams', validateBasic, { timeout: 4000 });
+describeSuite('base', __dirname + '/diagrams', validateDiagram, { timeout: 4000 });

@@ -5,8 +5,7 @@ var MiwgHelper = require('../miwg-helper');
 var describeSuite = Helper.describeSuite;
 
 
-function validateSchema(results, done) {
-
+function validateDiagram(results, done) {
   try {
     this.validateBasic(results);
     return this.validateBpmn20(results, done);
@@ -22,6 +21,6 @@ var miwgReferenceDirectory = MiwgHelper.resourcePath('Reference');
 describeSuite(
   'bpmn-miwg-test-suite',
   miwgReferenceDirectory,
-  validateSchema,
+  validateDiagram,
   { timeout: 10000 }
 );
