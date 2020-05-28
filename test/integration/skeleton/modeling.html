@@ -43,12 +43,7 @@
       // location: {{test-bpmn-path}}
       var initalProcess = '{{test-bpmn}}';
 
-      renderer.importXML(initalProcess, function(err) {
-        if (err && err !== null) {
-          console.log('snapshot initial reached FAIL\n' + err);
-          return console.log('done');
-        }
-
+      renderer.importXML(initalProcess).then(function(result) {
         var cli  = renderer.get('cli'),
             canvas = renderer.get('canvas');
 
@@ -62,6 +57,10 @@
         cli.snapshot('final');
 
         console.log('done');
+      }).catch(function(err) {
+
+        console.log('snapshot initial reached FAIL\n' + err);
+        return console.log('done');
       });
     }
 
