@@ -20,6 +20,9 @@
 
   <script type="text/javascript">
 
+    // Inject Promise polyfill
+    window.Promise = require('promise-polyfill');
+
     function test() {
 
       var BpmnJS = require('bpmn-modeler');
