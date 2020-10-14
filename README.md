@@ -1,6 +1,6 @@
 # bpmn-js-integration
 
-[![Build Status](https://travis-ci.org/bpmn-io/bpmn-js-integration.svg?branch=master)](https://travis-ci.org/bpmn-io/bpmn-js-integration)
+[![Build Status](https://travis-ci.com/bpmn-io/bpmn-js-integration.svg?branch=master)](https://travis-ci.com/bpmn-io/bpmn-js-integration)
 
 This project runs a number of integration tests against [bpmn-js](https://github.com/bpmn-io/bpmn-js):
 
