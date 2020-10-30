@@ -66,7 +66,7 @@ Helper.prototype.createTestTemplate = function(test, done) {
     write(test.html, testHtml);
 
     // write test descriptor
-    write(test.baseName + '.json', test);
+    write(test.baseName + '.json', JSON.stringify(test));
 
     done(null, test);
   } catch (e) {
