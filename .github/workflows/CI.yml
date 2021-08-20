@@ -1,0 +1,31 @@
+name: CI
+on: [ push, pull_request ]
+jobs:
+  Build:
+
+    env:
+      MIWG_PATH: tmp/bpmn-miwg-test-suite
+
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        node-version: [ 14 ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Checkout MIWG Test Suite
+      run: |
+        mkdir -p ${{ env.MIWG_PATH }}
+        git clone https://github.com/bpmn-io/bpmn-miwg-test-suite.git ${{ env.MIWG_PATH }}
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install dependencies
+      run: npm ci
+    - name: Build
+      if: matrix.os == 'ubuntu-latest'
+      run: npm run all
