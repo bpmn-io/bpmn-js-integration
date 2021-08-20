@@ -1,6 +1,6 @@
 # bpmn-js-integration
 
-[![Build Status](https://travis-ci.com/bpmn-io/bpmn-js-integration.svg?branch=master)](https://travis-ci.com/bpmn-io/bpmn-js-integration)
+[![CI](https://github.com/bpmn-io/bpmn-js-integration/actions/workflows/CI.yml/badge.svg)](https://github.com/bpmn-io/bpmn-js-integration/actions/workflows/CI.yml)
 
 This project runs a number of integration tests against [bpmn-js](https://github.com/bpmn-io/bpmn-js):
 
