@@ -1,9 +1,0 @@
-language: node_js
-node_js: lts/*
-
-script:
-  - MIWG_PATH=tmp/bpmn-miwg-test-suite npm run all
-
-before_install:
-  - mkdir -p tmp
-  - git clone https://github.com/bpmn-io/bpmn-miwg-test-suite.git tmp/bpmn-miwg-test-suite
