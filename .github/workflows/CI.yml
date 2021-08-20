@@ -27,5 +27,4 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build
-      if: matrix.os == 'ubuntu-latest'
       run: npm run all
