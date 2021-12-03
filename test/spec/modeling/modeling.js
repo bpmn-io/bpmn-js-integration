@@ -62,6 +62,13 @@ describe('modeling', function() {
   });
 
 
+  describe('color', function() {
+
+    it('should color', testExecute('colors/color.js', ensureValidBpmn20));
+
+  });
+
+
   describe('elements', function() {
 
     it('should create and remove DataAssociation(s)', testExecute('data-association/model.js', ensureValidBpmn20));
