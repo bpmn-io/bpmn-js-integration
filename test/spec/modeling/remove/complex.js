@@ -4,9 +4,11 @@
 // test remove and undo
 function executeTest(cli) {
 
-  cli.removeConnection('SequenceFlow_19223ev');
-  cli.removeShape('ExclusiveGateway_076qmx0');
-  cli.removeShape('EndEvent_1unts79');
+  cli.remove([
+    'SequenceFlow_19223ev',
+    'ExclusiveGateway_076qmx0',
+    'EndEvent_1unts79'
+  ]);
 
   cli.snapshot('removed');
 
