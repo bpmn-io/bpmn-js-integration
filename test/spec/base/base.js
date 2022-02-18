@@ -12,5 +12,5 @@ function validateDiagram(results, done) {
   }
 }
 
-
-describeSuite('base', __dirname + '/diagrams', validateDiagram, { timeout: 4000 });
+// creating subprocess planes for complex diagram takes a while
+describeSuite('base', __dirname + '/diagrams', validateDiagram, { timeout: 25000 });
