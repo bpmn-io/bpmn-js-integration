@@ -4,7 +4,8 @@ var path = require('path'),
     fs = require('fs'),
     mkdirp = require('mkdirp'),
     async = require('async'),
-    glob = require('glob');
+    glob = require('glob'),
+    semver = require('semver');
 
 var {
   forEach,
@@ -311,4 +312,25 @@ module.exports.describeSuite = function(suiteName, baseDir, validate, options) {
 
   });
 
+}
+
+
+/**
+ * Execute test only if currently installed bpmn-js is of given version.
+ *
+ * @param {string} versionRange
+ * @param {boolean} only
+ */
+ module.exports.withBpmnJs = function(versionRange, only) {
+  if (bpmnJsSatisfies(versionRange)) {
+    return only ? it.only : it;
+  } else {
+    return it.skip;
+  }
+}
+
+function bpmnJsSatisfies(versionRange) {
+  const bpmnJsVersion = require('bpmn-js/package.json').version;
+
+  return semver.satisfies(bpmnJsVersion, versionRange, { includePrerelease: true });
 }

@@ -1,5 +1,6 @@
 var Helper = require('../helper');
 
+var withBpmnJs = Helper.withBpmnJs
 
 describe('modeling', function() {
 
@@ -31,6 +32,17 @@ describe('modeling', function() {
     it('should append events', testExecute('append/events.js', ensureValidBpmn20));
 
     it('should append text-annotations', testExecute('append/text-annotation.js', ensureValidBpmn20));
+
+  });
+
+
+  describe('collapsed-subprocess', function() {
+
+    withBpmnJs('>=9')('should model groups', testExecute('collapsed-subprocess/task.js', ensureValidBpmn20));
+
+    withBpmnJs('>=9')('should model input associations', testExecute('collapsed-subprocess/data-association.js', ensureValidBpmn20));
+
+    withBpmnJs('>=9')('should model groups', testExecute('collapsed-subprocess/group.js', ensureValidBpmn20));
 
   });
 
