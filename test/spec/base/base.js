@@ -15,4 +15,4 @@ function validateDiagram(results, done) {
 // With bpmn-js@9, we introduces planes for subporcesses. This increased import time in chrome by ~30%
 // TODO(marstamm): investigate why the performance difference is significantly higher on phantomJS
 // cf. https://github.com/bpmn-io/bpmn-js-integration/issues/17
-describeSuite('base', __dirname + '/diagrams', validateDiagram, { timeout: 25000 });
+describeSuite('base', __dirname + '/diagrams', validateDiagram, { timeout: 30000 });
