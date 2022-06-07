@@ -53,6 +53,8 @@ describe('modeling', function() {
 
     it('should remove shape', testExecute('remove/shape.js', ensureValidBpmn20));
 
+    it('should remove multiple', testExecute('remove/multiple.js', ensureValidBpmn20));
+
     it('should remove complex', testExecute('remove/complex.js', ensureValidBpmn20));
 
   });
