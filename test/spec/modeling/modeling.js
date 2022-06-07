@@ -42,7 +42,7 @@ describe('modeling', function() {
 
     withBpmnJs('>=9')('should model input associations', testExecute('collapsed-subprocess/data-association.js', ensureValidBpmn20));
 
-    withBpmnJs('>=9')('should model groups', testExecute('collapsed-subprocess/group.js', ensureValidBpmn20));
+    withBpmnJs('>=9')('should model task', testExecute('collapsed-subprocess/group.js', ensureValidBpmn20));
 
   });
 
