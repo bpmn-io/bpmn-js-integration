@@ -73,7 +73,7 @@ function importRename(str) {
     if (multi) {
       return '.' + diagramIndex + '-import.' + ext;
     } else {
-      return '-import' + ext;
+      return '-import.' + ext;
     };
   });
 }
