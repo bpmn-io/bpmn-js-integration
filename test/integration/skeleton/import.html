@@ -44,6 +44,11 @@
 
         var diagrams = renderer.getDefinitions().diagrams;
 
+        // remove empty diagrams
+        diagrams = diagrams.filter(function(diagram) {
+          return diagram.plane.get('planeElement').length;
+        });
+
         return snapshotAndOpenNext(renderer, diagrams[0], diagrams, function(err) {
           if (err) {
             console.log('snapshot initial reached FAIL\n' + err);
