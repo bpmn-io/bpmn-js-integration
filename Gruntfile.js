@@ -23,9 +23,9 @@ module.exports = function(grunt) {
           'test/spec/miwg/*.js'
         ]
       },
-      miwg_rename: {
+      miwg_postprocess: {
         src: [
-          'test/postprocess/miwg-rename.js'
+          'test/postprocess/miwg-postprocess.js'
         ]
       },
       image_diff: {
@@ -104,7 +104,7 @@ module.exports = function(grunt) {
       return grunt.task.run([ 'mochaTest:image_diff' ]);
     }
 
-    return grunt.task.run([ 'mochaTest:test', 'mochaTest:miwg_rename' ]);
+    return grunt.task.run([ 'mochaTest:test', 'mochaTest:miwg_postprocess' ]);
   });
 
   grunt.registerTask('bundle', [ 'browserify:modeler', 'uglify:modeler' ]);

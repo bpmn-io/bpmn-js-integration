@@ -6,7 +6,18 @@ var glob = require('glob'),
 var BASE = 'tmp/integration/bpmn-miwg-test-suite';
 
 
-describe('miwg rename', function() {
+describe('miwg postprocess', function() {
+
+  it('should remove excessive roundtrip files', function() {
+
+    var roundtripFiles = glob.sync('*.bpmn', { cwd: BASE });
+
+    roundtripFiles.forEach(function(f) {
+      if (/-\d+-imported-[2-9]\.bpmn$/g.test(f)) {
+        fs.unlinkSync(path.join(BASE, f));
+      }
+    });
+  })
 
   it('should organize miwg test results according to import/export/roundtrip file pattern', function() {
 
@@ -55,15 +66,10 @@ describe('miwg rename', function() {
 
 });
 
-
 function roundtripRename(str) {
 
   return str.replace(/-(\d)+-imported(-(\d)+)?\.bpmn/g, function(match, run, multi, diagramIndex) {
-    if (multi) {
-      return '.' + diagramIndex + '-roundtrip.bpmn';
-    } else {
-      return '-roundtrip.bpmn'
-    };
+    return '-roundtrip.bpmn'
   });
 }
 
@@ -71,7 +77,7 @@ function importRename(str) {
 
   return str.replace(/-(\d)+-imported(-(\d)+)?\.(svg|png)/g, function(match, run, multi, diagramIndex, ext) {
     if (multi) {
-      return '.' + diagramIndex + '-import.' + ext;
+      return '-import.' + diagramIndex + '.' + ext;
     } else {
       return '-import.' + ext;
     };
