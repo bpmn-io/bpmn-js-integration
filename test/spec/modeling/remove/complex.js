@@ -1,26 +1,16 @@
-/* @bpmn initial.bpmn */
+/* @bpmn complex.bpmn */
 /* embedded and executed in browser test */
 
 // test remove and undo
-function executeTest(cli) {
+function executeTest(cli, editorActions) {
 
-  cli.remove([
-    'SequenceFlow_19223ev',
-    'ExclusiveGateway_076qmx0',
-    'EndEvent_1unts79'
-  ]);
-
+  editorActions.trigger('selectElements');
+  editorActions.trigger('removeSelection');
   cli.snapshot('removed');
 
-  cli.undo();
-  cli.undo();
-  cli.undo();
-
+  editorActions.trigger('undo');
   cli.snapshot('undone');
 
-  cli.redo();
-  cli.redo();
-  cli.redo();
-
+  editorActions.trigger('redo');
   cli.snapshot('redone');
 }

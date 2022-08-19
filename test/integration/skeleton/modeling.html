@@ -52,7 +52,7 @@
         cli.snapshot('initial');
 
         // execute test script
-        executeTest(cli);
+        renderer.invoke(executeTest, { cli: cli });
 
         cli.snapshot('final');
 

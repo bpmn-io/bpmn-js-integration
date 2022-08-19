@@ -42,7 +42,7 @@ describe('modeling', function() {
 
     withBpmnJs('>=9')('should model input associations', testExecute('collapsed-subprocess/data-association.js', ensureValidBpmn20));
 
-    withBpmnJs('>=9')('should model groups', testExecute('collapsed-subprocess/group.js', ensureValidBpmn20));
+    withBpmnJs('>=9')('should model task', testExecute('collapsed-subprocess/group.js', ensureValidBpmn20));
 
   });
 
@@ -52,6 +52,8 @@ describe('modeling', function() {
     it('should remove connection', testExecute('remove/connection.js', ensureValidBpmn20));
 
     it('should remove shape', testExecute('remove/shape.js', ensureValidBpmn20));
+
+    it('should remove multiple', testExecute('remove/multiple.js', ensureValidBpmn20));
 
     it('should remove complex', testExecute('remove/complex.js', ensureValidBpmn20));
 
