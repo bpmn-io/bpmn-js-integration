@@ -49,13 +49,9 @@
           return diagram.plane.get('planeElement').length;
         });
 
-        return snapshotAndOpenNext(renderer, diagrams[0], diagrams, function(err) {
-          if (err) {
-            console.log('snapshot initial reached FAIL\n' + err);
-          }
-
-          console.log('done');
-        });
+        return snapshotAndOpenNext(renderer, diagrams[0], diagrams);
+      }).then(function() {
+        console.log('done');
       }).catch(function(err) {
 
         console.log('snapshot initial reached FAIL\n' + err);
@@ -63,7 +59,7 @@
       });
 
 
-      function snapshotAndOpenNext(renderer, currentDiagram, diagrams, done) {
+      function snapshotAndOpenNext(renderer, currentDiagram, diagrams) {
 
         var cli  = renderer.get('cli'),
             canvas = renderer.get('canvas');
@@ -72,29 +68,19 @@
 
         var index = diagrams.indexOf(currentDiagram);
 
-        // TODO(nikku): this is/could be asynchronous;
-        // we must properly await its completion
-        cli.snapshot('imported' + (diagrams.length > 1 ? '-' + (index + 1) : ''));
+        return cli.snapshot('imported' + (diagrams.length > 1 ? '-' + (index + 1) : ''))
+          .then(function() {
+            var next = diagrams[index + 1];
 
-        var next = diagrams[index + 1];
-
-        if (!next) {
-          return done();
-        }
-
-        return setTimeout(function() {
-
-          return renderer.open(next, function(err) {
-
-            if (err) {
-              return done(err);
+            if (!next) {
+              return;
             }
 
-            return snapshotAndOpenNext(renderer, next, diagrams, done);
+            return renderer.open(next).then(function() {
+              return snapshotAndOpenNext(renderer, diagrams[index + 1], diagrams)
+            })
           });
-        }, 500);
       }
-
     }
 
     setTimeout(test, 250);
