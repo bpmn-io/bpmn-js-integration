@@ -17,7 +17,7 @@ describe('miwg postprocess', function() {
         fs.unlinkSync(path.join(BASE, f));
       }
     });
-  })
+  });
 
   it('should organize miwg test results according to import/export/roundtrip file pattern', function() {
 
@@ -69,7 +69,7 @@ describe('miwg postprocess', function() {
 function roundtripRename(str) {
 
   return str.replace(/-(\d)+-imported(-(\d)+)?\.bpmn/g, function(match, run, multi, diagramIndex) {
-    return '-roundtrip.bpmn'
+    return '-roundtrip.bpmn';
   });
 }
 
@@ -80,6 +80,6 @@ function importRename(str) {
       return '-import.' + diagramIndex + '.' + ext;
     } else {
       return '-import.' + ext;
-    };
+    }
   });
 }

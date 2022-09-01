@@ -40,7 +40,7 @@ describe('image diff', function() {
           transparency: 0.3
         });
 
-        resemble(imageA).compareTo(imageB).ignoreAntialiasing().onComplete(function(data){
+        resemble(imageA).compareTo(imageB).ignoreAntialiasing().onComplete(function(data) {
           var comparisonImageData = data.getImageDataUrl().substring('data:image/png;base64,'.length);
 
           var comparisonImage = new Buffer(comparisonImageData, 'base64');

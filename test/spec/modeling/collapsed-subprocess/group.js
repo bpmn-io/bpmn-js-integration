@@ -8,6 +8,6 @@ function executeTest(cli) {
 
   var planeElement = cli.element('SubProcess_1_plane');
 
-  var group = cli.create('bpmn:Group', '250,218', planeElement);
+  cli.create('bpmn:Group', '250,218', planeElement);
 
 }

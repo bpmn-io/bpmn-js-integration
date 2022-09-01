@@ -1,6 +1,6 @@
 /* embedded and executed in browser test */
 
-//Test parallel gateways
+// Test parallel gateways
 function executeTest(cli) {
 
   // element

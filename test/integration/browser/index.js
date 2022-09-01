@@ -15,15 +15,15 @@ function run(script, args, done) {
     cwd: process.cwd()
   });
 
-  instance.stdout.on('data', function (data) {
+  instance.stdout.on('data', function(data) {
     log(null, data);
   });
 
-  instance.stderr.on('data', function (data) {
+  instance.stderr.on('data', function(data) {
     log(true, data);
   });
 
-  instance.on('close', function (code) {
+  instance.on('close', function(code) {
     done(!code ? null : new Error('browser exited with code ' + code));
   });
 

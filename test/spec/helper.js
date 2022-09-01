@@ -49,6 +49,7 @@ module.exports = Helper;
 Helper.prototype.createTestTemplate = function(test, done) {
 
   try {
+
     // ensure directory exists
     mkdirp.sync(test.base);
 
@@ -57,11 +58,11 @@ Helper.prototype.createTestTemplate = function(test, done) {
     var libraryPath = path.relative(path.dirname(test.html), bpmnJsDistPath);
 
     var testHtml = templateContents
-                     .replace(/\{\{test-bpmn-path\}\}/g, test.bpmn)
-                     .replace(/\{\{test-bpmn\}\}/g, test.bpmn && escapeString(read(test.bpmn)))
-                     .replace(/\{\{test-script-path\}\}/g, test.script)
-                     .replace(/\{\{test-script\}\}/g, test.script && read(test.script))
-                     .replace(/\{\{bpmn-js-path\}\}/g, libraryPath);
+      .replace(/\{\{test-bpmn-path\}\}/g, test.bpmn)
+      .replace(/\{\{test-bpmn\}\}/g, test.bpmn && escapeString(read(test.bpmn)))
+      .replace(/\{\{test-script-path\}\}/g, test.script)
+      .replace(/\{\{test-script\}\}/g, test.script && read(test.script))
+      .replace(/\{\{bpmn-js-path\}\}/g, libraryPath);
 
     // write test html
     write(test.html, testHtml);
@@ -177,7 +178,7 @@ Helper.prototype.validateBpmn20 = function(results, done) {
 
   var validations = [];
 
-  forEach(results, function(subSteps, step) {
+  forEach(results, function(subSteps) {
     if (subSteps['bpmn']) {
       validations.push(function(done) {
         self.validateXSD(read(subSteps['bpmn'].file), done);
@@ -312,7 +313,7 @@ module.exports.describeSuite = function(suiteName, baseDir, validate, options) {
 
   });
 
-}
+};
 
 
 /**
@@ -321,13 +322,13 @@ module.exports.describeSuite = function(suiteName, baseDir, validate, options) {
  * @param {string} versionRange
  * @param {boolean} only
  */
- module.exports.withBpmnJs = function(versionRange, only) {
+module.exports.withBpmnJs = function(versionRange, only) {
   if (bpmnJsSatisfies(versionRange)) {
     return only ? it.only : it;
   } else {
     return it.skip;
   }
-}
+};
 
 function bpmnJsSatisfies(versionRange) {
   const bpmnJsVersion = require('bpmn-js/package.json').version;

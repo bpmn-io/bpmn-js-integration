@@ -3,7 +3,7 @@
 function executeTest(cli) {
 
   // elements
-  var elements = cli.elements();
+  cli.elements();
 
   // element
   var startEventElement = cli.element('StartEvent_1');

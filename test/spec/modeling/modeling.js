@@ -1,6 +1,6 @@
 var Helper = require('../helper');
 
-var withBpmnJs = Helper.withBpmnJs
+var withBpmnJs = Helper.withBpmnJs;
 
 describe('modeling', function() {
 

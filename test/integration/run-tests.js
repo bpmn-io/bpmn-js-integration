@@ -24,8 +24,7 @@ try {
 
 var PATTERN = /^snapshot ([^\s]+) ([^\s]+) (SUCCESS|FAIL)(?:\n*([^]+))?$/;
 
-var FAIL = 'FAIL',
-    SUCCESS = 'SUCCESS';
+var FAIL = 'FAIL';
 
 var idx = -1,
     test,
@@ -52,6 +51,7 @@ function next() {
 }
 
 function log(str) {
+
   // quiet now!
   // console.log.apply(console, Array.prototype.slice.call(arguments));
 }
@@ -100,28 +100,28 @@ page.onConsoleMessage = function(msg) {
     } else {
       log('test SUCCESS ' + step + ' ' + element);
 
-      switch(element) {
-        case 'reached':
-          result[element] = { status: 'SUCCESS', file: baseName + '-' + step + '.png' };
+      switch (element) {
+      case 'reached':
+        result[element] = { status: 'SUCCESS', file: baseName + '-' + step + '.png' };
 
-          if (name !== 'page-open') {
-            page.render(baseName + '-' + step + '.png');
-          }
+        if (name !== 'page-open') {
+          page.render(baseName + '-' + step + '.png');
+        }
 
-          break;
+        break;
 
-        case 'bpmn':
-          result[element] = { status: 'SUCCESS', file: baseName + '-' + step + '.bpmn' };
-          fs.write(baseName + '-' + step + '.bpmn', payload);
-          break;
+      case 'bpmn':
+        result[element] = { status: 'SUCCESS', file: baseName + '-' + step + '.bpmn' };
+        fs.write(baseName + '-' + step + '.bpmn', payload);
+        break;
 
-        case 'svg':
-          result[element] = { status: 'SUCCESS', file: baseName + '-' + step + '.svg' };
-          fs.write(baseName + '-' + step + '.svg', payload);
-          break;
+      case 'svg':
+        result[element] = { status: 'SUCCESS', file: baseName + '-' + step + '.svg' };
+        fs.write(baseName + '-' + step + '.svg', payload);
+        break;
 
-        default:
-          console.log('unknown', msg);
+      default:
+        console.log('unknown', msg);
       }
     }
   }
