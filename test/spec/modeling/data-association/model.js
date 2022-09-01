@@ -3,7 +3,7 @@
 function executeTest(cli) {
 
   // new association
-  var inputAssociation = cli.connect('DataObjectReference', 'Task_B', 'bpmn:DataInputAssociation');
+  cli.connect('DataObjectReference', 'Task_B', 'bpmn:DataInputAssociation');
 
   cli.snapshot('created');
 

@@ -8,7 +8,7 @@ For validation it uses the official BPMN schema definitions.
 # Write test cases
 
 Create a new test files in the [test directory](https://github.com/bpmn-io/bpmn-js-integration/tree/master/test/fixtures/model-js).
-A test file is a valid JavaScript file, containing a function named `test`
+A test file is a valid JavaScript file, containing a function named `executeTest`
 
 ```javascript
 function executeTest(cli) {

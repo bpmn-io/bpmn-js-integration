@@ -1,12 +1,12 @@
 /* embedded and executed in browser test */
 
-//Test gateways and joining on gateway for a loop
+// Test gateways and joining on gateway for a loop
 function executeTest(cli) {
 
   var i;
 
   // element
-  var startEventElement = cli.element('StartEvent_1');
+  cli.element('StartEvent_1');
 
   var gatewayShape1 = cli.append('StartEvent_1', 'bpmn:ExclusiveGateway', '150,0');
 

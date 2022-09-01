@@ -5,5 +5,5 @@
 function executeTest(cli) {
   var startEventElement = cli.element('StartEvent_1');
 
-  var task = cli.append(startEventElement, 'bpmn:Task 150,0');
+  cli.append(startEventElement, 'bpmn:Task 150,0');
 }

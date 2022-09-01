@@ -1,6 +1,6 @@
 /* @bpmn containers.bpmn */
 
-//Test events
+// Test events
 function executeTest(cli) {
 
   var elements = [
@@ -14,9 +14,7 @@ function executeTest(cli) {
     'IntermediateCatchEvent_2'
   ];
 
-  var e, i;
-
-  for (i = 0; !!(e = elements[i]); i++) {
-    cli.append(e, 'bpmn:TextAnnotation', '100,0');
+  for (var i = 0; i < elements.length; i++) {
+    cli.append(elements[i], 'bpmn:TextAnnotation', '100,0');
   }
 }
