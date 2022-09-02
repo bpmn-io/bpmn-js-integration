@@ -1,15 +1,15 @@
 /* @bpmn containments.bpmn */
 
-function executeTest(cli) {
+async function executeTest(cli) {
   cli.move('SubProcess_1', '20,40');
 
-  cli.snapshot('moved');
+  await cli.snapshot('moved');
 
   cli.undo();
 
-  cli.snapshot('undone');
+  await cli.snapshot('undone');
 
   cli.redo();
 
-  cli.snapshot('redone');
+  await cli.snapshot('redone');
 }

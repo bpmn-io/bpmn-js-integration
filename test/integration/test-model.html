@@ -53,14 +53,14 @@
                 '  </bpmndi:BPMNDiagram>' +
                 '</bpmn2:definitions>';
 
-      renderer.importXML(initalProcess, function(err) {
+      renderer.importXML(initalProcess, async function(err) {
         if (err && err !== null) {
-          console.log('import bpmn FAIL\n' + err);
-          return console.log('done');
+          await window.report('import bpmn FAIL\n' + err);
+          return window.report('done');
         }
         var cli  = renderer.get('cli');
 
-        console.info('import bpmn SUCCESS');
+        await window.report('import bpmn SUCCESS');
 
         // execute test case embedded via {{ testScript }}
         executeTest(cli);
@@ -70,26 +70,26 @@
         renderer.saveSVG(function(err, svg) {
 
           if (err) {
-            console.log('export svg FAIL\n' + JSON.stringify(err));
+            await window.report('export svg FAIL\n' + JSON.stringify(err));
           } else {
-            console.log('export svg SUCCESS\n' + svg);
+            await window.report('export svg SUCCESS\n' + svg);
           }
 
           if (++plan == 2) {
-            console.log('done');
+            await window.report('done');
           }
         });
 
-        renderer.saveXML({ format: true }, function(err, xml) {
+        renderer.saveXML({ format: true }, async function(err, xml) {
 
           if (err) {
-            console.log('export bpmn FAIL\n' + JSON.stringify(err));
+            await window.report('export bpmn FAIL\n' + JSON.stringify(err));
           } else {
-            console.log('export bpmn SUCCESS\n' + xml);
+            await window.report('export bpmn SUCCESS\n' + xml);
           }
 
           if (++plan == 2) {
-            console.log('done');
+            await window.report('done');
           }
         });
       });

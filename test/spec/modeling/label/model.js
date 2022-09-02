@@ -1,6 +1,6 @@
 /* embedded and executed in browser test */
 
-function executeTest(cli) {
+async function executeTest(cli) {
 
   // elements
   cli.elements();
@@ -12,25 +12,25 @@ function executeTest(cli) {
 
   var connection = cli.connect(startEventElement, task, 'bpmn:SequenceFlow');
 
-  cli.snapshot('modeled');
+  await cli.snapshot('modeled');
 
   cli.setLabel(connection, 'A connection label');
   cli.setLabel(startEventElement, 'A shape label');
 
-  cli.snapshot('setlabel');
+  await cli.snapshot('setlabel');
 
   cli.removeConnection(connection);
   cli.removeShape(startEventElement);
 
-  cli.snapshot('removedlabel');
+  await cli.snapshot('removedlabel');
 
   cli.undo();
   cli.undo();
 
-  cli.snapshot('undone');
+  await cli.snapshot('undone');
 
   cli.redo();
   cli.redo();
 
-  cli.snapshot('redone');
+  await cli.snapshot('redone');
 }

@@ -27,9 +27,6 @@
 
   <script type="text/javascript">
 
-    // Inject Promise polyfill
-    window.Promise = require('promise-polyfill');
-
     function test() {
 
       var BpmnJS = require('bpmn-modeler');
@@ -43,24 +40,24 @@
       // location: {{test-bpmn-path}}
       var initalProcess = '{{test-bpmn}}';
 
-      renderer.importXML(initalProcess).then(function(result) {
+      renderer.importXML(initalProcess).then(async function(result) {
         var cli  = renderer.get('cli'),
             canvas = renderer.get('canvas');
 
         canvas.zoom('fit-viewport');
 
-        cli.snapshot('initial');
+        await cli.snapshot('initial');
 
         // execute test script
-        executeTest(cli);
+        await executeTest(cli);
 
-        cli.snapshot('final');
+        await cli.snapshot('final');
 
-        console.log('done');
-      }).catch(function(err) {
+        await window.report('done');
+      }).catch(async function(err) {
 
-        console.log('snapshot initial reached FAIL\n' + err);
-        return console.log('done');
+        await window.report('snapshot initial reached FAIL\n' + err);
+        return window.report('done');
       });
     }
 

@@ -1,93 +1,78 @@
-/* global phantom */
+const { readFile, writeFile } = require('fs/promises');
+const path = require('path');
 
-var page = require('webpage').create(),
-    system = require('system'),
-    fs = require('fs');
+const PATTERN = /^snapshot ([^\s]+) ([^\s]+) (SUCCESS|FAIL)(?:\n*([^]+))?$/;
 
-var configFile = system.args[1];
+const FAIL = 'FAIL';
 
-if (!configFile) {
+module.exports = runTests;
 
-  console.error('must specify test configuration file');
-  phantom.exit(1);
-}
+/**
+ *
+ * @param {import('puppeteer').Browser} browser
+ * @param {*} configPath
+ */
+async function runTests(browser, configPath) {
+  const tests = await parseTests(configPath);
+  log('parsed config file ' + configPath);
 
-var tests;
+  const page = await createPage();
 
-try {
-  log('parsed config file ' + configFile);
-  tests = JSON.parse(fs.read(configFile));
-} catch (e) {
-  console.error('failed to parse ' + configFile);
-  phantom.exit(1);
-}
+  page.exposeFunction('report', function(message) {
+    return report(message);
+  });
 
-var PATTERN = /^snapshot ([^\s]+) ([^\s]+) (SUCCESS|FAIL)(?:\n*([^]+))?$/;
+  let idx = 0,
+      test,
+      results,
+      snapshot,
+      saveResultsAndNext = () => {};
 
-var FAIL = 'FAIL';
+  while (idx < tests.length) {
+    results = {};
+    snapshot = -1;
+    test = tests[idx];
 
-var idx = -1,
-    test,
-    results,
-    snapshot;
+    await new Promise(resolve => {
+      saveResultsAndNext = async function() {
+        saveResults();
+        log('done.');
+        resolve();
+      };
 
+      executeTest(test);
+    });
 
-function next() {
-
-  idx++;
-  results = {};
-  snapshot = -1;
-  test = tests[idx];
-
-  if (!test) {
-    fs.write(configFile, JSON.stringify(tests), 'w');
-
-    log('All done. Exiting.');
-    phantom.exit();
-  } else {
-    executeTest(test);
+    idx++;
   }
 
-}
+  await writeFile(configPath, JSON.stringify(tests, null, 2));
+  log('All done. Exiting.');
 
-function log(str) {
 
-  // quiet now!
-  // console.log.apply(console, Array.prototype.slice.call(arguments));
-}
-
-function saveAndNext() {
-  test.results = results;
-  log('done.');
-
-  next();
-}
-
-page.viewportSize = {
-  width: 1024,
-  height: 768
-};
-
-page.onConsoleMessage = function(msg) {
-
-  var baseName = test.baseName;
-
-  if (msg === 'done') {
-    return saveAndNext();
+  function saveResults() {
+    test.results = results;
   }
 
-  var match = PATTERN.exec(msg);
+  async function report(msg) {
+    const baseName = test.baseName;
 
-  if (!match) {
-    console.error('unexpected message: ' + msg);
-  } else {
-    var name = match[1],
-        element = match[2],
-        status = match[3],
-        payload = match[4];
+    if (msg === 'done') {
+      return saveResultsAndNext();
+    }
 
-    var step = snapshot + '-' + name;
-    var result = results[step];
+    const match = PATTERN.exec(msg);
+    if (!match) {
+      throw new Error('unexpected message: ' + msg);
+    }
+
+    const name = match[1],
+          element = match[2],
+          status = match[3],
+          payload = match[4];
+
+    let step = snapshot + '-' + name,
+        result = results[step];
     if (!result) {
       snapshot++;
       step = snapshot + '-' + name;
@@ -97,49 +82,81 @@ page.onConsoleMessage = function(msg) {
     if (status === FAIL) {
       log('test FAIL ' + step + ' ' + element + ': ' + payload);
       result[element] = { status: 'FAILED', error: payload };
-    } else {
-      log('test SUCCESS ' + step + ' ' + element);
 
-      switch (element) {
-      case 'reached':
-        result[element] = { status: 'SUCCESS', file: baseName + '-' + step + '.png' };
+      return;
+    }
 
-        if (name !== 'page-open') {
-          page.render(baseName + '-' + step + '.png');
-        }
+    log('test SUCCESS ' + step + ' ' + element);
 
-        break;
+    switch (element) {
+    case 'reached':
+      result[element] = { status: 'SUCCESS', file: baseName + '-' + step + '.png' };
 
-      case 'bpmn':
-        result[element] = { status: 'SUCCESS', file: baseName + '-' + step + '.bpmn' };
-        fs.write(baseName + '-' + step + '.bpmn', payload);
-        break;
-
-      case 'svg':
-        result[element] = { status: 'SUCCESS', file: baseName + '-' + step + '.svg' };
-        fs.write(baseName + '-' + step + '.svg', payload);
-        break;
-
-      default:
-        console.log('unknown', msg);
+      if (name !== 'page-open') {
+        await screenshot(baseName + '-' + step + '.png');
       }
+
+      break;
+
+    case 'bpmn':
+      result[element] = { status: 'SUCCESS', file: baseName + '-' + step + '.bpmn' };
+      await writeFile(baseName + '-' + step + '.bpmn', payload);
+      break;
+
+    case 'svg':
+      result[element] = { status: 'SUCCESS', file: baseName + '-' + step + '.svg' };
+      await writeFile(baseName + '-' + step + '.svg', payload);
+      break;
+
+    default:
+      log('unknown', msg);
     }
   }
-};
 
-function executeTest(test) {
+  async function executeTest(test) {
 
-  var fileName = test.html;
+    const fileName = path.resolve(process.cwd(), test.html);
 
-  log('execute ' + test.name);
+    log('execute ' + test.name);
 
-  page.open(fileName, function(status) {
-    page.onConsoleMessage('snapshot page-open reached ' + status.toUpperCase());
+    const response = await page.goto('file://' + fileName);
 
-    if (status === 'fail') {
-      page.onConsoleMessage('done');
+    if (!response.ok()) {
+      throw new Error('failed to load ' + fileName);
     }
-  });
+
+    await report('snapshot page-open reached SUCCESS');
+  }
+
+  async function createPage() {
+    const page = await browser.newPage();
+
+    await page.setViewport({
+      width: 1024,
+      height: 768
+    });
+
+    return page;
+  }
+
+  function screenshot(fileName) {
+    return page.screenshot({ path: fileName });
+  }
 }
 
-next();
+async function parseTests(configPath) {
+  if (!configPath) {
+    throw new Error('must specify test configuration file');
+  }
+  const testConfig = await readFile(configPath, 'utf-8');
+  const tests = JSON.parse(testConfig);
+
+  return tests;
+}
+
+function log(str) {
+
+  // quiet now!
+  // console.log.apply(console, Array.prototype.slice.call(arguments));
+}
+

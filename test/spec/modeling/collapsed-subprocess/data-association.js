@@ -1,24 +1,24 @@
 /* @bpmn subprocess.bpmn */
 
-function executeTest(cli) {
+async function executeTest(cli) {
 
   // new association
   var inputAssociation = cli.connect('DataObjectReference', 'Task_B', 'bpmn:DataInputAssociation');
 
-  cli.snapshot('created');
+  await cli.snapshot('created');
 
   // removed association
   cli.removeConnection(inputAssociation);
 
-  cli.snapshot('removed');
+  await cli.snapshot('removed');
 
   cli.undo();
   cli.undo();
 
-  cli.snapshot('undone');
+  await cli.snapshot('undone');
 
   cli.redo();
   cli.redo();
 
-  cli.snapshot('redone');
+  await cli.snapshot('redone');
 }
