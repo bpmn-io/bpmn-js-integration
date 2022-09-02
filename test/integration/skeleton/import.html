@@ -20,10 +20,7 @@
 
   <script type="text/javascript">
 
-    // Inject Promise polyfill
-    window.Promise = require('promise-polyfill');
-
-    function test() {
+    async function test() {
 
       var BpmnJS = require('bpmn-modeler');
 
@@ -40,7 +37,7 @@
       // location: {{test-bpmn-path}}
       var initalProcess = '{{test-bpmn}}';
 
-      renderer.importXML(initalProcess).then(function() {
+      await renderer.importXML(initalProcess).then(function() {
 
         var diagrams = renderer.getDefinitions().diagrams;
 
@@ -51,15 +48,15 @@
 
         return snapshotAndOpenNext(renderer, diagrams[0], diagrams);
       }).then(function() {
-        console.log('done');
-      }).catch(function(err) {
+        return window.report('done');
+      }).catch(async function(err) {
 
-        console.log('snapshot initial reached FAIL\n' + err);
-        return console.log('done');
+        await window.report('snapshot initial reached FAIL\n' + err);
+        return window.report('done');
       });
 
 
-      function snapshotAndOpenNext(renderer, currentDiagram, diagrams) {
+      async function snapshotAndOpenNext(renderer, currentDiagram, diagrams) {
 
         var cli  = renderer.get('cli'),
             canvas = renderer.get('canvas');
@@ -68,18 +65,17 @@
 
         var index = diagrams.indexOf(currentDiagram);
 
-        return cli.snapshot('imported' + (diagrams.length > 1 ? '-' + (index + 1) : ''))
-          .then(function() {
-            var next = diagrams[index + 1];
+        await cli.snapshot('imported' + (diagrams.length > 1 ? '-' + (index + 1) : ''));
 
-            if (!next) {
-              return;
-            }
+        var next = diagrams[index + 1];
 
-            return renderer.open(next).then(function() {
-              return snapshotAndOpenNext(renderer, diagrams[index + 1], diagrams)
-            })
-          });
+        if (!next) {
+          return;
+        }
+
+        await renderer.open(next);
+
+        return snapshotAndOpenNext(renderer, diagrams[index + 1], diagrams);
       }
     }
 

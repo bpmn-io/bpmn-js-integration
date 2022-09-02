@@ -1,33 +1,26 @@
-var phantomjs = require('phantomjs-prebuilt'),
-    spawn = require('child_process').spawn;
+const puppeteer = require('puppeteer');
 
-function log(err, message) {
+function _log(err, message) {
   console.log('  ' + (err ? 'ERR! ' : '') + message.toString('utf-8').replace(/\n\s*$/, ''));
 }
 
-function run(script, args, done) {
+async function run(script, args, done) {
 
-  var runArgs = args.slice();
+  const browser = await puppeteer.launch();
 
-  runArgs.unshift(script);
+  let error;
+  try {
+    const execute = require(script);
 
-  var instance = spawn(phantomjs.path, runArgs, {
-    cwd: process.cwd()
-  });
+    await execute(browser, ...args);
+  } catch (e) {
+    console.error(e);
+    error = e;
+  } finally {
+    await browser.close();
+  }
 
-  instance.stdout.on('data', function(data) {
-    log(null, data);
-  });
-
-  instance.stderr.on('data', function(data) {
-    log(true, data);
-  });
-
-  instance.on('close', function(code) {
-    done(!code ? null : new Error('browser exited with code ' + code));
-  });
-
-  return instance;
+  done(error);
 }
 
 module.exports.run = run;

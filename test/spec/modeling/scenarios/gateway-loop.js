@@ -1,7 +1,7 @@
 /* embedded and executed in browser test */
 
 // Test gateways and joining on gateway for a loop
-function executeTest(cli) {
+async function executeTest(cli) {
 
   var i;
 
@@ -19,17 +19,17 @@ function executeTest(cli) {
   cli.append(gatewayShape2, 'bpmn:EndEvent', '100,0');
 
 
-  cli.snapshot('modeled');
+  await cli.snapshot('modeled');
 
   for (i = 0; i < 5; i++) {
     cli.undo();
   }
 
-  cli.snapshot('undone');
+  await cli.snapshot('undone');
 
   for (i = 0; i < 5; i++) {
     cli.redo();
   }
 
-  cli.snapshot('redone');
+  await cli.snapshot('redone');
 }

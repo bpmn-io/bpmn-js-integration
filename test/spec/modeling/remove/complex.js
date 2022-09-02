@@ -2,7 +2,7 @@
 /* embedded and executed in browser test */
 
 // test remove and undo
-function executeTest(cli) {
+async function executeTest(cli) {
 
   cli.remove([
     'SequenceFlow_19223ev',
@@ -10,17 +10,17 @@ function executeTest(cli) {
     'EndEvent_1unts79'
   ]);
 
-  cli.snapshot('removed');
+  await cli.snapshot('removed');
 
   cli.undo();
   cli.undo();
   cli.undo();
 
-  cli.snapshot('undone');
+  await cli.snapshot('undone');
 
   cli.redo();
   cli.redo();
   cli.redo();
 
-  cli.snapshot('redone');
+  await cli.snapshot('redone');
 }

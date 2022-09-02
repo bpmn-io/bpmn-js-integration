@@ -45,9 +45,6 @@ module.exports = function(grunt) {
           } ]
         ],
         preBundleCB: function(b) {
-
-          b.require('promise-polyfill');
-
           b.require(path.resolve('./vendor/bpmn.js'), {
             expose: 'bpmn-modeler'
           });

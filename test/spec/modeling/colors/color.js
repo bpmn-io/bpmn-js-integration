@@ -1,15 +1,15 @@
 /* @bpmn colors.bpmn */
 
-function executeTest(cli) {
+async function executeTest(cli) {
 
-  cli.snapshot('imported');
+  await cli.snapshot('imported');
 
   var elements = cli.elements();
 
   // reset colors
   cli.color(elements, 'unset,unset');
 
-  cli.snapshot('reset');
+  await cli.snapshot('reset');
 
   // color all
   cli.color(elements, 'red,green');
