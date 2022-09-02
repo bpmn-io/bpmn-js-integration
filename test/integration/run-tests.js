@@ -19,8 +19,13 @@ async function runTests(browser, configPath) {
 
   const page = await createPage();
 
+  // reported errors are collected and thrown at the end
+  const errors = [];
   page.exposeFunction('report', function(message) {
-    return report(message);
+    return report(message).catch(error => {
+      log('error while reporting', error);
+      errors.push(error);
+    });
   });
 
   let idx = 0,
@@ -49,6 +54,10 @@ async function runTests(browser, configPath) {
 
   await writeFile(configPath, JSON.stringify(tests, null, 2));
   log('All done. Exiting.');
+
+  if (errors.length) {
+    throw new Error(errors.map(e => e.message).join('\n'));
+  }
 
 
   function saveResults() {
