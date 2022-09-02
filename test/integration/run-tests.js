@@ -1,5 +1,6 @@
 const { readFile, writeFile } = require('fs/promises');
 const path = require('path');
+const debug = require('debug')('test:integration:run-tests');
 
 const PATTERN = /^snapshot ([^\s]+) ([^\s]+) (SUCCESS|FAIL)(?:\n*([^]+))?$/;
 
@@ -154,9 +155,6 @@ async function parseTests(configPath) {
   return tests;
 }
 
-function log(str) {
-
-  // quiet now!
-  // console.log.apply(console, Array.prototype.slice.call(arguments));
+function log(...args) {
+  debug(...args);
 }
-
