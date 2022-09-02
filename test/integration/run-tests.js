@@ -35,7 +35,7 @@ async function runTests(browser, configPath) {
     test = tests[idx];
 
     await new Promise(resolve => {
-      saveResultsAndNext = async function() {
+      saveResultsAndNext = function() {
         saveResults();
         log('done.');
         resolve();
