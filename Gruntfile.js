@@ -1,4 +1,5 @@
-var path = require('path');
+const { nodeResolve } = require('@rollup/plugin-node-resolve');
+const commonjs = require('@rollup/plugin-commonjs');
 
 module.exports = function(grunt) {
 
@@ -37,38 +38,19 @@ module.exports = function(grunt) {
 
     clean: [ 'tmp/integration', 'dist' ],
 
-    browserify: {
-      options: {
-        transform: [
-          [ 'babelify', {
-            global: true
-          } ]
-        ],
-        preBundleCB: function(b) {
-          b.require(path.resolve('./vendor/bpmn.js'), {
-            expose: 'bpmn-modeler'
-          });
-        }
-      },
+    rollup: {
+      options: {},
       modeler: {
         files: {
-          'dist/bpmn.js': [ 'lib/bpmn.js' ],
-        }
-      }
-    },
-
-    uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-                '<%= grunt.template.today("yyyy-mm-dd") %> - ' +
-                'http://bpmn.io/license - ' +
-                'https://github.com/bpmn-io/bpmn-js */',
-        sourceMap: true,
-        sourceMapIncludeSources: true
-      },
-      modeler: {
-        files: {
-          'dist/bpmn.min.js': [ 'dist/bpmn.js' ]
+          'dist/bpmn.js': 'vendor/bpmn.js'
+        },
+        options: {
+          plugins: [
+            nodeResolve(),
+            commonjs()
+          ],
+          name: 'BpmnJS',
+          format: 'umd'
         }
       }
     },
@@ -104,7 +86,7 @@ module.exports = function(grunt) {
     return grunt.task.run([ 'mochaTest:test', 'mochaTest:miwg_postprocess' ]);
   });
 
-  grunt.registerTask('bundle', [ 'browserify:modeler', 'uglify:modeler' ]);
+  grunt.registerTask('bundle', [ 'rollup:modeler' ]);
 
   grunt.registerTask('auto-test', [ 'test', 'watch:test' ]);
 
