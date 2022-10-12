@@ -4,9 +4,21 @@ function _log(err, message) {
   console.log('  ' + (err ? 'ERR! ' : '') + message.toString('utf-8').replace(/\n\s*$/, ''));
 }
 
-async function run(script, args, done) {
+let browser;
 
-  const browser = await puppeteer.launch();
+before(async function openBrowser() {
+  browser = await puppeteer.launch();
+});
+
+
+after(async function closeBrowser() {
+  if (browser) {
+    await browser.close();
+  }
+});
+
+
+async function run(script, args, done) {
 
   let error;
   try {
@@ -16,8 +28,6 @@ async function run(script, args, done) {
   } catch (e) {
     console.error(e);
     error = e;
-  } finally {
-    await browser.close();
   }
 
   done(error);
