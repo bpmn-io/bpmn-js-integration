@@ -1,8 +1,8 @@
-var Helper = require('../helper');
+const Helper = require('../helper');
 
-var MiwgHelper = require('../miwg-helper');
+const MiwgHelper = require('../miwg-helper');
 
-var describeSuite = Helper.describeSuite;
+const describeSuite = Helper.describeSuite;
 
 
 function validateDiagram(results, done) {
@@ -15,7 +15,8 @@ function validateDiagram(results, done) {
 }
 
 
-var miwgReferenceDirectory = MiwgHelper.resourcePath('Reference');
+const miwgReferenceDirectory = MiwgHelper.resourcePath('Reference'),
+      miwgSubmissionDirectory = MiwgHelper.submissionPath();
 
 
 describeSuite(
@@ -23,4 +24,12 @@ describeSuite(
   miwgReferenceDirectory,
   validateDiagram,
   { timeout: 10000 }
+);
+
+
+describeSuite(
+  'bpmn-miwg-test-suite',
+  miwgSubmissionDirectory,
+  validateDiagram,
+  { glob: '*-export.bpmn', timeout: 10000 }
 );
