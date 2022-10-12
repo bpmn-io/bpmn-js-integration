@@ -293,7 +293,7 @@ Helper.prototype.testImport = function(bpmn, validate) {
 };
 
 
-module.exports.describeSuite = function(suiteName, baseDir, validate, options) {
+module.exports.describeSuite = function(suiteName, baseDir, validate, options = {}) {
 
   describe(suiteName, function() {
 
@@ -303,7 +303,7 @@ module.exports.describeSuite = function(suiteName, baseDir, validate, options) {
 
     var helper = new Helper(baseDir, suiteName);
 
-    var diagramFiles = glob.sync('*.bpmn', { cwd: baseDir });
+    var diagramFiles = glob.sync(options.glob || '*.bpmn', { cwd: baseDir });
 
     diagramFiles.forEach(function(file) {
 
