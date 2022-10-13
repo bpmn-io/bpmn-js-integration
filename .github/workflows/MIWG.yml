@@ -1,7 +1,7 @@
-name: CI
+name: MIWG
 on: workflow_dispatch
 jobs:
-  "Create MIWG submission":
+  "Create_MIWG_submission":
 
     env:
       MIWG_PATH: tmp/bpmn-miwg-test-suite
