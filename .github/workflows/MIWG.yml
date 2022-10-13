@@ -1,0 +1,36 @@
+name: CI
+on: workflow_dispatch
+jobs:
+  "Create MIWG submission":
+
+    env:
+      MIWG_PATH: tmp/bpmn-miwg-test-suite
+
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        node-version: [ 14 ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Checkout MIWG Test Suite
+      run: |
+        mkdir -p ${{ env.MIWG_PATH }}
+        git clone https://github.com/bpmn-io/bpmn-miwg-test-suite.git ${{ env.MIWG_PATH }}
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install dependencies
+      run: npm ci
+    - name: Create submission files
+      run: npm run test:miwg
+    - name: Prepare pull request
+      env:
+        BPMN_IO_TOKEN: ${{ secrets.BPMN_IO_TOKEN }}
+        BPMN_IO_EMAIL: ${{ secrets.BPMN_IO_EMAIL }}
+        BPMN_IO_USERNAME: ${{ secrets.BPMN_IO_USERNAME }}
+      run: ./tasks/prepare-submission.sh
