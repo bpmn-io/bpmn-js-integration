@@ -20,13 +20,15 @@ mv "$SUBMISSION_PATH" "$MIWG_PATH/bpmn.io (Camunda Modeler) $TOOLKIT_VERSION"
 
 node $(dirname $0)/update-tools-list.js
 
+cd $MIWG_PATH
+
 git config user.email "$BPMN_IO_EMAIL"
 git config user.name "$BPMN_IO_USERNAME"
 git config push.default simple
 
-git -C $MIWG_PATH add -A
-git -C $MIWG_PATH commit -m "feat: prepare bpmn.io $TOOLKIT_VERSION submission"
+git add -A
+git commit -m "feat: prepare bpmn.io $TOOLKIT_VERSION submission"
 
-git -C $MIWG_PATH push "$FORK_REPO" "$BRANCH_NAME"
+git push "$FORK_REPO" "$BRANCH_NAME"
 
 echo "Open PR with https://github.com/bpmn-miwg/bpmn-miwg-test-suite/compare/master...bpmn-io:bpmn-miwg-test-suite:$BRANCH_NAME"
