@@ -44,18 +44,21 @@ npm run all
 
 ## Generate MIWG Suite Results
 
+To generate results locally:
+
 ```sh
 git clone git@github.com:bpmn-io/bpmn-js-integration.git
 git clone git@github.com:bpmn-miwg/bpmn-miwg-test-suite.git
 
 cd bpmn-js-integration
 npm install
-npm run all
+npm run miwg
 
 cd tmp/integration/bpmn-miwg-test-suite
 ls -lla
 ```
 
+The submission can be generated via [the MIWG workflow](./.github/workflows/MIWG.yml). [Read more](https://github.com/camunda/bpmn-miwg#preparing-a-submission).
 
 ## License
 
