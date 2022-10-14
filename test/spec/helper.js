@@ -18,7 +18,7 @@ var BPMN_XSD = require.resolve('bpmn-moddle/resources/bpmn/xsd/BPMN20.xsd');
 
 var browser = require('../integration/browser');
 
-var bpmnJsDistPath = fs.realpathSync('dist/bpmn.js');
+var bpmnJsDistPath = path.resolve(__dirname, '../../dist/bpmn.js');
 
 
 function escapeString(str) {
