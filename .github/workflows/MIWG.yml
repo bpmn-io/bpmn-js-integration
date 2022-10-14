@@ -27,7 +27,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Create submission files
-      run: npm run test:miwg
+      run: npm run miwg
     - name: Prepare pull request
       env:
         BPMN_IO_TOKEN: ${{ secrets.BPMN_IO_TOKEN }}

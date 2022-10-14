@@ -6,6 +6,7 @@
     "test": "run-s test:all",
     "test:all": "npm run mocha -- test/spec/base/*.js test/spec/modeling/*.js test/spec/miwg/*.js",
     "test:miwg": "npm run mocha -- test/spec/miwg/*.js",
+    "miwg": "run-s build test:miwg",
     "dev": "npm run test:all -- --watch",
     "all": "run-s lint clean build test",
     "lint": "eslint .",
