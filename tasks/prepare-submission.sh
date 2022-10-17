@@ -10,7 +10,7 @@ git -C $MIWG_PATH switch -c $BRANCH_NAME
 
 SUBMISSION_PATH="$(node -p "require('./test/spec/miwg-helper').submissionPath()")"
 
-cp -R tmp/integration/bpmn-miwg-test-suite/ "$SUBMISSION_PATH"
+cp tmp/integration/bpmn-miwg-test-suite/* "$SUBMISSION_PATH"
 
 rm -f "$SUBMISSION_PATH"/*.html
 rm -f "$SUBMISSION_PATH"/*.json
