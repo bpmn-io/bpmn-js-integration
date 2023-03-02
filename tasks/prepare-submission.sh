@@ -2,7 +2,7 @@
 
 set -e -o pipefail
 
-TOOLKIT_VERSION="$(node -p "require('bpmn-js/package.json').version")"
+export TOOLKIT_VERSION="$(node -p "require('bpmn-js/package.json').version")"
 BRANCH_NAME="submit-$TOOLKIT_VERSION"
 FORK_REPO="https://$BPMN_IO_TOKEN@github.com/bpmn-io/bpmn-miwg-test-suite.git"
 
