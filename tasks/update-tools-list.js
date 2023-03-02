@@ -14,12 +14,15 @@ const currentYear = `${new Date().getFullYear()}`;
 
 entry.lastResultsSubmitted = currentYear;
 
-const demosList = entry.participatedInDemosByYear.split(',');
+if (process.env.UPDATE_DEMO_YEAR === 'true') {
+  const demosList = entry.participatedInDemosByYear.split(',');
 
-if (!demosList.includes(currentYear)) {
-  demosList.unshift(currentYear);
+  if (!demosList.includes(currentYear)) {
+    demosList.unshift(currentYear);
+  }
+
+  entry.participatedInDemosByYear = demosList.join(',');
 }
 
-entry.participatedInDemosByYear = demosList.join(',');
 
 write(toolsListLocation, JSON.stringify(toolsList, null, 2), 'utf-8');
