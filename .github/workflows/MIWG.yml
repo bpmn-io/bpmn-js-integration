@@ -1,5 +1,11 @@
 name: MIWG
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      update_demo_year:
+        description: 'True to update last demo participation year'
+        required: true
+        type: boolean
 jobs:
   "Create_MIWG_submission":
 
@@ -33,4 +39,5 @@ jobs:
         BPMN_IO_TOKEN: ${{ secrets.BPMN_IO_TOKEN }}
         BPMN_IO_EMAIL: ${{ secrets.BPMN_IO_EMAIL }}
         BPMN_IO_USERNAME: ${{ secrets.BPMN_IO_USERNAME }}
+        UPDATE_DEMO_YEAR: "${{ inputs.update_demo_year }"
       run: ./tasks/prepare-submission.sh
