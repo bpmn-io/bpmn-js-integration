@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest ]
-        node-version: [ 14 ]
+        node-version: [ 20 ]
 
     runs-on: ${{ matrix.os }}
 
@@ -39,5 +39,5 @@ jobs:
         BPMN_IO_TOKEN: ${{ secrets.BPMN_IO_TOKEN }}
         BPMN_IO_EMAIL: ${{ secrets.BPMN_IO_EMAIL }}
         BPMN_IO_USERNAME: ${{ secrets.BPMN_IO_USERNAME }}
-        UPDATE_DEMO_YEAR: "${{ inputs.update_demo_year }"
+        UPDATE_DEMO_YEAR: "${{ inputs.update_demo_year }}"
       run: ./tasks/prepare-submission.sh
