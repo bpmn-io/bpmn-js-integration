@@ -15,7 +15,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
     - name: Checkout MIWG Test Suite
       run: |
         mkdir -p ${{ env.MIWG_PATH }}
