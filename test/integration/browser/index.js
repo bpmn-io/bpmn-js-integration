@@ -7,7 +7,9 @@ function _log(err, message) {
 let browser;
 
 before(async function openBrowser() {
-  browser = await puppeteer.launch();
+  browser = await puppeteer.launch({
+    headless: 'new'
+  });
 });
 
 
