@@ -1,9 +1,9 @@
-var CliSnapshotModule = require('../lib/snapshot'),
-    BpmnJSCli = require('bpmn-js-cli').default;
+import CliSnapshotModule from '../lib/snapshot';
+import BpmnJSCli from 'bpmn-js-cli';
 
-var Modeler = require('bpmn-js/lib/Modeler').default;
-
-module.exports = Modeler;
+import Modeler from 'bpmn-js/lib/Modeler';
 
 Modeler.prototype._modules.push(BpmnJSCli);
 Modeler.prototype._modules.push(CliSnapshotModule);
+
+export default Modeler;
