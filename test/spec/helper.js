@@ -4,7 +4,6 @@
 
 var path = require('path'),
     fs = require('fs'),
-    mkdirp = require('mkdirp'),
     async = require('async'),
     glob = require('glob'),
     semver = require('semver');
@@ -53,7 +52,7 @@ Helper.prototype.createTestTemplate = function(test, done) {
   try {
 
     // ensure directory exists
-    mkdirp.sync(test.base);
+    fs.mkdirSync(test.base, { recursive: true });
 
     var templateContents = read(test.skeleton);
 
