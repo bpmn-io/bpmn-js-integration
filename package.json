@@ -56,7 +56,7 @@
     "rimraf": "^5.0.0",
     "rollup": "^4.9.4",
     "semver": "^7.3.7",
-    "xsd-schema-validator": "^0.7.0"
+    "xsd-schema-validator": "^0.9.0"
   },
   "dependencies": {
     "bpmn-js": "^17.0.2",
