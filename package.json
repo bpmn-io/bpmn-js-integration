@@ -52,7 +52,7 @@
     "eslint-plugin-bpmn-io": "^1.0.0",
     "glob": "^10.0.0",
     "mocha": "^10.4.0",
-    "npm-run-all2": "^6.0.0",
+    "npm-run-all2": "^6.1.2",
     "rimraf": "^5.0.0",
     "rollup": "^4.9.4",
     "semver": "^7.3.7",
