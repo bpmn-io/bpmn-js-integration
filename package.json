@@ -10,7 +10,7 @@
     "dev": "npm run test:all -- --watch",
     "all": "run-s lint clean build test",
     "lint": "eslint .",
-    "mocha": "mocha --reporter spec -r test/expect.js",
+    "mocha": "mocha --exit --reporter spec -r test/expect.js",
     "clean": "rimraf dist tmp/integration",
     "build": "rollup -c --bundleConfigAsCjs"
   },
