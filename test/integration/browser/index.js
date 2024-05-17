@@ -7,6 +7,7 @@ function _log(err, message) {
 let browser;
 
 before(async function openBrowser() {
+  this.timeout(5000);
   browser = await puppeteer.launch({
     headless: 'new'
   });
