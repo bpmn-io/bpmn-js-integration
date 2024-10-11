@@ -22,10 +22,7 @@ export default [
   ...bpmnIoPlugin.configs.node.map(config => {
     return {
       ...config,
-      files: [
-        ...files.build,
-        ...files.test
-      ]
+      ignores: files.lib
     };
   }),
   ...bpmnIoPlugin.configs.mocha.map(config => {
