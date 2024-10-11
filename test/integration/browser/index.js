@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 
+// eslint-disable-next-line no-unused-vars
 function _log(err, message) {
   console.log('  ' + (err ? 'ERR! ' : '') + message.toString('utf-8').replace(/\n\s*$/, ''));
 }

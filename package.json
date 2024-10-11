@@ -49,7 +49,7 @@
     "chai": "^4.4.1",
     "debug": "^4.3.4",
     "eslint": "^9.0.0",
-    "eslint-plugin-bpmn-io": "^2.0.0",
+    "eslint-plugin-bpmn-io": "^2.0.2",
     "glob": "^11.0.0",
     "mocha": "^10.4.0",
     "npm-run-all2": "^6.1.2",

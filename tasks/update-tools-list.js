@@ -1,5 +1,3 @@
-/* eslint-env node */
-
 const { readFileSync: read, writeFileSync: write } = require('fs');
 
 const { resourcePath } = require('../test/spec/miwg-helper');
