@@ -65,5 +65,8 @@
     "min-dash": "^5.0.0",
     "puppeteer-core": "^25.2.1",
     "which": "^7.0.0"
+  },
+  "allowScripts": {
+    "xsd-schema-validator@0.7.0": true
   }
 }
