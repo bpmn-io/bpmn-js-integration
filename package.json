@@ -63,6 +63,7 @@
     "bpmn-js-cli": "^2.4.0",
     "bpmn-moddle": "^10.0.0",
     "min-dash": "^5.0.0",
-    "puppeteer": "^25.0.0"
+    "puppeteer-core": "^25.2.1",
+    "which": "^7.0.0"
   }
 }
