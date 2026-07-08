@@ -67,6 +67,7 @@
     "which": "^7.0.0"
   },
   "allowScripts": {
-    "xsd-schema-validator@0.7.0": true
+    "xsd-schema-validator@0.7.0": true,
+    "unrs-resolver@1.12.2": true
   }
 }
