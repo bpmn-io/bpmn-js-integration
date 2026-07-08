@@ -10,7 +10,7 @@ module.exports = runTests;
 
 /**
  *
- * @param {import('puppeteer').Browser} browser
+ * @param {import('puppeteer-core').Browser} browser
  * @param {*} configPath
  */
 async function runTests(browser, configPath) {
