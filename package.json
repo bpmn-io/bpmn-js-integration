@@ -59,7 +59,7 @@
     "xsd-schema-validator": "^0.7.0"
   },
   "dependencies": {
-    "bpmn-js": "^18.23.0",
+    "bpmn-js": "^18.24.0",
     "bpmn-js-cli": "^2.4.0",
     "bpmn-moddle": "^10.1.0",
     "min-dash": "^5.0.0",
