@@ -28,7 +28,7 @@ async function findChrome() {
 let browser;
 
 before(async function openBrowser() {
-  this.timeout(10000);
+  this.timeout(20000);
 
   const executablePath = await findChrome();
 
