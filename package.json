@@ -43,8 +43,8 @@
     "bpmn-js": "./vendor/bpmn.js"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^29.0.0",
-    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-commonjs": "^29.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "async": "^3.2.5",
     "chai": "^6.2.2",
     "debug": "^4.3.4",
@@ -54,7 +54,7 @@
     "mocha": "^11.7.6",
     "npm-run-all2": "^9.0.2",
     "rimraf": "^6.0.0",
-    "rollup": "^4.17.2",
+    "rollup": "^4.63.1",
     "semver": "^7.6.2",
     "xsd-schema-validator": "^0.7.0"
   },
